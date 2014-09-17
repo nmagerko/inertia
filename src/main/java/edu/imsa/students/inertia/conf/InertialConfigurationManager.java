@@ -20,10 +20,7 @@ public class InertialConfigurationManager {
 	private static final String PROJECT_CONF_PREFIX = "src/main/java/edu/imsa/students/inertia/conf";
 	
 	static {
-		/* Base configuration path assignment */
 		baseConfigurations.put("application", String.format("%s/base/application.conf.xml", PROJECT_CONF_PREFIX));
-		
-		/* Env configuration path assignment */
 		envConfigurations.put("falling", String.format("%s/env/falling.conf.xml", PROJECT_CONF_PREFIX));
 	}
 	
