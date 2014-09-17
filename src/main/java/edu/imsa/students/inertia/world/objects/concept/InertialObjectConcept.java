@@ -1,6 +1,6 @@
 package edu.imsa.students.inertia.world.objects.concept;
 
-import edu.imsa.students.inertia.setup.aliases.InertialVector;
+import edu.imsa.students.inertia.utils.InertialVector;
 
 /**
  * The inertia objects' "concept" ensures the following:

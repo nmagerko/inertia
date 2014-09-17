@@ -4,7 +4,7 @@
 
   <groupId>edu.imsa.students</groupId>
   <artifactId>inertia</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
   <packaging>jar</packaging>
 
   <name>inertia</name>
@@ -18,8 +18,18 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>4.8.1</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+    	<groupId>commons-configuration</groupId>
+    	<artifactId>commons-configuration</artifactId>
+    	<version>1.10</version>
+    </dependency>
+    <dependency>
+    	<groupId>commons-collections</groupId>
+    	<artifactId>commons-collections</artifactId>
+    	<version>3.2.1</version>
     </dependency>
   </dependencies>
 </project>

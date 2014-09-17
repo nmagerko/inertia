@@ -1,4 +1,4 @@
-package edu.imsa.students.inertia.setup.aliases;
+package edu.imsa.students.inertia.utils;
 
 import javafx.geometry.Point2D;
 
