@@ -6,6 +6,11 @@ import org.apache.commons.configuration.XMLConfiguration;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Tests InertialConfigurationManger functionality
+ * @author nmagerko
+ *
+ */
 public class ConfigurationTest {
 	
 	private InertialConfigurationManager configurationManager;
@@ -21,9 +26,14 @@ public class ConfigurationTest {
 	@Before
 	public void setUp() throws Exception {
 		this.configurationManager = new InertialConfigurationManager();
-		this.baseConfiguration = configurationManager.getBaseConfiguration(APPLICATION_CONFIGURATION_KEY);
+		this.baseConfiguration = configurationManager.getConfiguration(APPLICATION_CONFIGURATION_KEY);
 	}
 	
+	/**
+	 * Tests key retrieval functionality using the 
+	 * primary application configuration
+	 *
+	 */
 	@Test
 	public void testSimpleKeyRetrieval(){
 		assertEquals(baseConfiguration.getInteger(UI_DEFAULT_WIDTH_KEY, null), EXPECTED_DEFAULT_WIDTH);
