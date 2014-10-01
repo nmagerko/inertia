@@ -1,6 +1,6 @@
 package edu.imsa.students.inertia.world.objects;
 
-import edu.imsa.students.inertia.utils.InertialVector;
+import edu.imsa.students.inertia.utils.vectors.InertialVector;
 import edu.imsa.students.inertia.world.objects.concept.InertialObjectAttributes;
 import edu.imsa.students.inertia.world.objects.concept.InertialObjectConcept;
 import javafx.scene.shape.Rectangle;

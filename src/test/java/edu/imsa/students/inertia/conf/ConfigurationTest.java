@@ -6,6 +6,8 @@ import org.apache.commons.configuration.XMLConfiguration;
 import org.junit.Before;
 import org.junit.Test;
 
+import edu.imsa.students.inertia.utils.conf.InertialConfigurationManager;
+
 /**
  * Tests InertialConfigurationManger functionality
  * @author nmagerko

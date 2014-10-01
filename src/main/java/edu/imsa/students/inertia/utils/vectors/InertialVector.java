@@ -1,4 +1,4 @@
-package edu.imsa.students.inertia.utils;
+package edu.imsa.students.inertia.utils.vectors;
 
 import javafx.geometry.Point2D;
 
