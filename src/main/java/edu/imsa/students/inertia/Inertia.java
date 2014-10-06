@@ -1,5 +1,9 @@
 package edu.imsa.students.inertia;
 
 public class Inertia {
-	// TODO: implementation
+
+	public static void main(String[] args) {
+		// construct a new InertialArchitect
+	}
+
 }

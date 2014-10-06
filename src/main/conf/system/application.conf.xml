@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+	<ui>
+		<defaults>
+			<width>750</width>
+			<height>800</height>
+		</defaults>
+	</ui>
+</config>
