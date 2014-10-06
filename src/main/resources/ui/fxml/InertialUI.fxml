@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../css/caspian.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.imsa.students.inertia.ui.InertiaUIController">
+	<top>
+		<MenuBar BorderPane.alignment="CENTER">
+			<menus>
+				<Menu mnemonicParsing="false" text="File">
+					<items>
+						<MenuItem fx:id="closeMenuItem" mnemonicParsing="false" onAction="#closeProgram" text="Close" />
+					</items>
+				</Menu>
+				<Menu mnemonicParsing="false" text="Edit">
+					<items>
+						<MenuItem fx:id="copyMenuItem" mnemonicParsing="false" onAction="#copy" text="Copy" />
+						<MenuItem fx:id="deleteMenuItem" mnemonicParsing="false" text="Delete" />
+					</items>
+				</Menu>
+				<Menu mnemonicParsing="false" text="View" />
+			</menus>
+		</MenuBar>
+	</top>
+	<left>
+		<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="574.0" prefWidth="258.0" BorderPane.alignment="CENTER" />
+	</left>
+   <bottom>
+      <VBox prefHeight="150.0" prefWidth="1314.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" contentDisplay="TOP" layoutX="42.0" layoutY="-1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="46.0" prefWidth="134.0" text="TIME PASSED" textAlignment="RIGHT" AnchorPane.leftAnchor="0.0">
+                     <font>
+                        <Font name="Segoe UI Light" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="1204.0" layoutY="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="46.0" prefWidth="150.0" text="TIME TOTAL" AnchorPane.rightAnchor="0.0">
+                     <font>
+                        <Font name="Segoe UI Light" size="18.0" />
+                     </font>
+                  </Label>
+                  <Slider fx:id="timeSlider" layoutX="204.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" onMouseDragReleased="#changeTime" prefHeight="45.0" prefWidth="1096.0" style="-fx-show-tick-marks: true; -fx-show-tick-labels: false;" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0">
+                     <cursor>
+                        <Cursor fx:constant="CLOSED_HAND" />
+                     </cursor>
+                  </Slider>
+               </children>
+            </AnchorPane>
+            <FlowPane alignment="CENTER" columnHalignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="354.0" prefWidth="1352.0" rowValignment="BASELINE" style="-fx-background-color: #2B2B2B;">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="104.0" prefWidth="338.0">
+                     <children>
+                        <Button fx:id="previous" mnemonicParsing="false" onAction="#handlePreviousButton" prefHeight="67.0" prefWidth="68.0">
+                           <graphic>
+                              <ImageView fitHeight="19.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/previous.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <ToggleButton fx:id="play" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#playPauseSimulation" prefHeight="77.0" prefWidth="82.0" scaleShape="false" textOverrun="CLIP" wrapText="true">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fx:id="image" fitHeight="51.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/play.png" />
+                                 </image></ImageView>
+                           </graphic>
+                        </ToggleButton>
+                        <Button fx:id="nextButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleNextButton" prefHeight="67.0" prefWidth="68.0">
+                           <graphic>
+                              <ImageView fitHeight="19.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/next.png" />
+                                 </image></ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </FlowPane>
+         </children>
+      </VBox>
+   </bottom>
+   <right>
+      <SplitPane dividerPositions="0.5072886297376094" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" orientation="VERTICAL" prefHeight="574.0" prefWidth="268.0" BorderPane.alignment="CENTER">
+        <items>
+          <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+          <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+        </items>
+      </SplitPane>
+   </right>
+   <center>
+      <Canvas fx:id="canvas" height="600.0" onMouseClicked="#checkObjectsLocations" onMouseDragged="#checkObjectsDrag" onMouseReleased="#releaseObject" width="900.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
