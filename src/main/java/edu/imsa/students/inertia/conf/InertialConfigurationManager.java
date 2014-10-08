@@ -1,4 +1,5 @@
-package edu.imsa.students.inertia.utils.conf;
+package edu.imsa.students.inertia.conf;
+
 
 import java.io.File;
 import java.util.HashMap;
@@ -11,7 +12,7 @@ import org.apache.logging.log4j.LogManager;
 
 /**
  * Builds and manages the default (base) configuration
- * files for the Inertia simulations
+ * files for the InertialUI simulations
  * 
  * @author nmagerko
  *
@@ -47,9 +48,7 @@ public class InertialConfigurationManager {
 	static {
 		File systemConfigurationFolder = new File(String.format("%s%s", PROJECT_CONF_PATH, SYSTEM_CONF_PATH));
 		try {
-			logger.info("Initializing system configurations");
 			generateSystemConfigurations(systemConfigurationFolder);
-			
 			logger.info("System configurations initialized");
 		} catch (ConfigurationException e) {
 			logger.error("An error occurred while generating the system configurations", e);

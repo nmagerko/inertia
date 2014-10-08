@@ -6,8 +6,6 @@ import org.apache.commons.configuration.XMLConfiguration;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.imsa.students.inertia.utils.conf.InertialConfigurationManager;
-
 /**
  * Tests InertialConfigurationManger functionality
  * @author nmagerko
@@ -22,8 +20,8 @@ public class ConfigurationTest {
 	private final String UI_DEFAULT_WIDTH_KEY = "ui.defaults.width";
 	private final String UI_DEFAULT_HEIGHT_KEY = "ui.defaults.height";
 	
-	private final Integer EXPECTED_DEFAULT_WIDTH = 750;
-	private final Integer EXPECTED_DEFAULT_HEIGHT = 800;
+	private final Integer EXPECTED_DEFAULT_WIDTH = 1450;
+	private final Integer EXPECTED_DEFAULT_HEIGHT = 815;
 
 	@Before
 	public void setUp() throws Exception {

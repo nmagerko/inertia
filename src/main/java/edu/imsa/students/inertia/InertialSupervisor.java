@@ -1,5 +1,6 @@
-package edu.imsa.students.inertia.ui;
+package edu.imsa.students.inertia;
 
+import edu.imsa.students.inertia.world.InertialWorld;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
@@ -9,7 +10,9 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class InertialUIController {
+public class InertialSupervisor {
+	
+	private InertialWorld supervisedWorld;
 
 	boolean paused = true;
 	@FXML
@@ -53,7 +56,7 @@ public class InertialUIController {
 	@FXML
 	private void copy() {
 
-		System.out.println("This works");
+		supervisedWorld.sayHello();
 	}
 
 	@FXML
@@ -88,6 +91,14 @@ public class InertialUIController {
 	@FXML
 	private void releaseObject() {
 		System.out.println("This works");
+	}
+	
+	public InertialWorld getSupervisedWorld(){
+		return this.supervisedWorld;
+	}
+	
+	public void setSupervisedWorld(InertialWorld newSupervisedWorld){
+		this.supervisedWorld = newSupervisedWorld;
 	}
 
 }

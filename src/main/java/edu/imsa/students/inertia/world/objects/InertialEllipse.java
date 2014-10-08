@@ -1,6 +1,6 @@
 package edu.imsa.students.inertia.world.objects;
 
-import edu.imsa.students.inertia.utils.vectors.InertialVector;
+import edu.imsa.students.inertia.world.models.InertialVector;
 import edu.imsa.students.inertia.world.objects.concept.InertialObjectConcept;
 import edu.imsa.students.inertia.world.objects.concept.InertialObjectAttributes;
 import javafx.scene.shape.Ellipse;

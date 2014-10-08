@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <config>
+    <application>
+        <name>Inertia</name>
+        <version>0.0.2</version>
+    </application>
 	<ui>
 		<defaults>
 		    <title>Inertia</title>
