@@ -9,7 +9,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class InertiaUIController {
+public class InertialUIController {
 
 	boolean paused = true;
 	@FXML

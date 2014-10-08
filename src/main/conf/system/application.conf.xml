@@ -3,8 +3,9 @@
 <config>
 	<ui>
 		<defaults>
-			<width>750</width>
-			<height>800</height>
+		    <title>Inertia</title>
+			<width>1450</width>
+			<height>815</height>
 		</defaults>
 	</ui>
 </config>
