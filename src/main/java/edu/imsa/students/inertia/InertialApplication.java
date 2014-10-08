@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import org.apache.commons.configuration.XMLConfiguration;
@@ -22,23 +23,23 @@ import org.apache.logging.log4j.Logger;
  */
 public class InertialApplication extends Application {
 	
-	private Integer DEFAULT_SCENE_WIDTH;
-	private Integer DEFAULT_SCENE_HEIGHT;
-	private String DEFAULT_SCENE_NAME;
-	
-	private InertialWorld world;
+	private XMLConfiguration configuration;
 	
 	private static Logger logger = LogManager.getLogger(InertialApplication.class);
 	
 	/**
 	 * Sets the default stage properties using the values
 	 * provided in the application configuration
-	 * @param configuration	the application configuration
 	 */
-	private void configureDefaultStageProperties(XMLConfiguration configuration){
-		this.DEFAULT_SCENE_WIDTH = configuration.getInteger("ui.defaults.width", null);
-		this.DEFAULT_SCENE_HEIGHT = configuration.getInteger("ui.defaults.height", null);
-		this.DEFAULT_SCENE_NAME = configuration.getString("ui.defaults.title");
+	private void configureDefaultStageProperties(Stage stage){
+		stage.setWidth(configuration.getInt("ui.defaults.width"));
+		stage.setHeight(configuration.getInt("ui.defaults.height"));
+		stage.setTitle(configuration.getString("ui.defaults.title"));
+	}
+	
+	private void configureDefaultWorldProprties(InertialWorld world){
+		world.setGravitationalAcceleration(configuration.getDouble("world.defaults.gravitational-acceleration", 0));
+		world.setAirResistance(configuration.getDouble("world.defaults.air-resistance", 0));
 	}
 	
 	/**
@@ -69,13 +70,12 @@ public class InertialApplication extends Application {
 		logger.info("Initializing application subsystems");
 		
 		InertialConfigurationManager configurationManager = new InertialConfigurationManager();
-		this.world = new InertialWorld(configurationManager);
-		this.configureDefaultStageProperties(configurationManager.getConfiguration("application"));
+		this.configuration = configurationManager.getConfiguration("application");
 	}
 	
 	@Override
 	public void start(Stage stage) {
-		logger.info("Subsystem initialization complete. Displaying graphical interface");
+		logger.info("Setting up graphical interface");
 		
 		// the loader, root, and scene are initialized in the following
 		// order to ensure that the loader received by the controller
@@ -83,15 +83,16 @@ public class InertialApplication extends Application {
 		FXMLLoader loader = new FXMLLoader();
 		Parent root = configureSceneParent(loader);
 		Scene scene = new Scene(root);
+		InertialWorld world = new InertialWorld();
 		InertialSupervisor supervisor = loader.getController();
 		
 		// set default scene properties
+		this.configureDefaultStageProperties(stage);
+		stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/inertia-icon-48.png")));
 		stage.setScene(scene);
-		stage.setWidth(DEFAULT_SCENE_WIDTH);
-		stage.setHeight(DEFAULT_SCENE_HEIGHT);
-		stage.setTitle(DEFAULT_SCENE_NAME);
 		
 		// provide the supervisor with a world to manipulate
+		this.configureDefaultWorldProprties(world);
 		supervisor.setSupervisedWorld(world);
 		stage.show();
 	}

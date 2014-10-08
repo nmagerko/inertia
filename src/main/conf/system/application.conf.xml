@@ -12,4 +12,10 @@
 			<height>815</height>
 		</defaults>
 	</ui>
+	<world>
+	    <defaults>
+	        <gravitational-acceleration>-9.8</gravitational-acceleration>
+	    	<air-resistance>0.0</air-resistance>
+	    </defaults>
+	</world>
 </config>

@@ -56,7 +56,6 @@ public class InertialSupervisor {
 	@FXML
 	private void copy() {
 
-		supervisedWorld.sayHello();
 	}
 
 	@FXML
