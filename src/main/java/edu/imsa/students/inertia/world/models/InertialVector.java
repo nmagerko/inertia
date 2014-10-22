@@ -1,5 +1,7 @@
 package edu.imsa.students.inertia.world.models;
 
+import java.io.Serializable;
+
 import javafx.geometry.Point2D;
 
 /**
@@ -17,5 +19,6 @@ public class InertialVector extends Point2D {
 	public InertialVector(double x, double y) {
 		super(x, y);
 	}
+	
 
 }

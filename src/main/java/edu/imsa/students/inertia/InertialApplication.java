@@ -95,10 +95,14 @@ public class InertialApplication extends Application {
 		this.configureDefaultWorldProprties(world);
 		supervisor.setSupervisedWorld(world);
 		stage.show();
+		
+		// setup drag-and-drop
+		supervisor.setDragAndDropSettings();
 	}
 	
 	public static void main(String[] args) {
 		logger.info("***Launching application***");
 		InertialApplication.launch();
+		logger.info("***Application closed***");
 	}
 }

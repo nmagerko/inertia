@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.canvas.*?>
@@ -9,6 +10,8 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import edu.imsa.students.inertia.world.objects.InertialRectangle?>
+
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../css/caspian.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.imsa.students.inertia.InertialSupervisor">
 	<top>
@@ -30,7 +33,19 @@
 		</MenuBar>
 	</top>
 	<left>
-		<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="574.0" prefWidth="258.0" BorderPane.alignment="CENTER" />
+		<VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="574.0" prefWidth="203.0" stylesheets="@../css/caspian.css" BorderPane.alignment="CENTER">
+         <children>
+            <Circle fx:id="circle" fill="DODGERBLUE" onDragDone="#tryPlaceCircle" radius="50.0" stroke="BLACK" strokeType="INSIDE">
+               <VBox.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </VBox.margin>
+            </Circle>
+            <InertialRectangle fx:id="square" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="100.0" stroke="BLACK" strokeType="INSIDE" width="100.0">
+               <VBox.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </VBox.margin>
+            </InertialRectangle>
+         </children></VBox>
 	</left>
    <bottom>
       <VBox prefHeight="150.0" prefWidth="1314.0" BorderPane.alignment="CENTER">
@@ -58,34 +73,11 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="104.0" prefWidth="338.0">
                      <children>
-                        <Button fx:id="previous" mnemonicParsing="false" onAction="#handlePreviousButton" prefHeight="67.0" prefWidth="68.0">
-                           <graphic>
-                              <ImageView fitHeight="19.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../img/previous.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <ToggleButton fx:id="play" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#playPauseSimulation" prefHeight="77.0" prefWidth="82.0" scaleShape="false" textOverrun="CLIP" wrapText="true">
+                        <ToggleButton fx:id="play" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#playPauseSimulation" prefHeight="77.0" prefWidth="202.0" scaleShape="false" text="RUN" textAlignment="CENTER" textOverrun="CENTER_WORD_ELLIPSIS" wrapText="true">
                            <font>
-                              <Font size="21.0" />
+                              <Font size="30.0" />
                            </font>
-                           <graphic>
-                              <ImageView fx:id="image" fitHeight="51.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../img/play.png" />
-                                 </image></ImageView>
-                           </graphic>
                         </ToggleButton>
-                        <Button fx:id="nextButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleNextButton" prefHeight="67.0" prefWidth="68.0">
-                           <graphic>
-                              <ImageView fitHeight="19.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../img/next.png" />
-                                 </image></ImageView>
-                           </graphic>
-                        </Button>
                      </children>
                   </HBox>
                </children>
@@ -96,12 +88,12 @@
    <right>
       <SplitPane dividerPositions="0.5072886297376094" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" orientation="VERTICAL" prefHeight="574.0" prefWidth="268.0" BorderPane.alignment="CENTER">
         <items>
-          <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+          <AnchorPane fx:id="upperDetailsPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
           <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
         </items>
       </SplitPane>
    </right>
    <center>
-      <Canvas fx:id="canvas" height="600.0" onMouseClicked="#checkObjectsLocations" onMouseDragged="#checkObjectsDrag" onMouseReleased="#releaseObject" width="900.0" BorderPane.alignment="CENTER" />
+      <Pane fx:id="inertialPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>
