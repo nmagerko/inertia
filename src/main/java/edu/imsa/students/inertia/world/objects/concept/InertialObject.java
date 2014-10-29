@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import javafx.scene.shape.Shape;
 
-public abstract class InertialObject implements Cloneable, InertialConcept, Serializable {
+public abstract class InertialObject implements Cloneable, Serializable {
 	
 	private static final long serialVersionUID = -2236801302630542221L;
 	

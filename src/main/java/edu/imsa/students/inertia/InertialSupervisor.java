@@ -8,9 +8,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+import edu.imsa.students.inertia.services.interactivity.InertialDragSetupService;
 import edu.imsa.students.inertia.world.InertialWorld;
 import edu.imsa.students.inertia.world.objects.InertialRectangle;
-import edu.imsa.students.inertia.world.services.interactivity.InertialDragSetupService;
 
 public class InertialSupervisor {
 
@@ -117,7 +117,7 @@ public class InertialSupervisor {
 	 * Set up drag and drop between the objects.
 	 */
 	public void setDragAndDropSettings() {
-		InertialDragSetupService.setUpEnvironmentSettings(inertialPane);
+		InertialDragSetupService.setUpEnvironmentDrag(inertialPane);
 	}
 
 }

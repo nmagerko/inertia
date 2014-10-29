@@ -5,9 +5,9 @@ import javafx.scene.shape.Circle;
 import javax.vecmath.Point2d;
 import javax.vecmath.Vector2d;
 
+import edu.imsa.students.inertia.services.interactivity.InertialDragSetupService;
 import edu.imsa.students.inertia.world.objects.concept.InertialAttributes;
 import edu.imsa.students.inertia.world.objects.concept.InertialObject;
-import edu.imsa.students.inertia.world.services.interactivity.InertialDragSetupService;
 
 public class InertialCircle extends InertialObject {
 

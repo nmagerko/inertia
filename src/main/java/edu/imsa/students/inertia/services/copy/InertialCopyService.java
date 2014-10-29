@@ -1,4 +1,4 @@
-package edu.imsa.students.inertia.world.services.interactivity;
+package edu.imsa.students.inertia.services.copy;
 
 import javafx.scene.input.DragEvent;
 import javafx.scene.layout.Pane;
@@ -19,6 +19,7 @@ public class InertialCopyService {
 		Double newY = event.getY() - mousePosition.y;
 		Point2d newPosition = new Point2d(newX, newY);
 		newShapeAttributes.setPosition(newPosition);
+		newShape.updateDelegatedAttributes();
 		
 		newShape.getDelegatedShape().setVisible(true);
 		// Add the rectangle to the pane

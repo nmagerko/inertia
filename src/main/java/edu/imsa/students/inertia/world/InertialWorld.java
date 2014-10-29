@@ -3,19 +3,19 @@ package edu.imsa.students.inertia.world;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.imsa.students.inertia.world.objects.concept.InertialConcept;
+import edu.imsa.students.inertia.world.objects.concept.InertialObject;
 
 public class InertialWorld {
 	
 	private Double gravitationalAcceleration;
 	private Double airResistance;
-	private List<InertialConcept> objects;
+	private List<InertialObject> objects;
 	
 	public InertialWorld(){
-		this.objects = new ArrayList<InertialConcept>();
+		this.objects = new ArrayList<InertialObject>();
 	}
 	
-	public InertialWorld(List<InertialConcept> objects){
+	public InertialWorld(List<InertialObject> objects){
 		this.objects = objects;
 	}
 

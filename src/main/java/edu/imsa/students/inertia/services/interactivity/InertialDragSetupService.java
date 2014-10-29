@@ -1,7 +1,8 @@
-package edu.imsa.students.inertia.world.services.interactivity;
+package edu.imsa.students.inertia.services.interactivity;
 
 import javax.vecmath.Point2d;
 
+import edu.imsa.students.inertia.services.copy.InertialCopyService;
 import edu.imsa.students.inertia.world.objects.concept.InertialAttributes;
 import edu.imsa.students.inertia.world.objects.concept.InertialObject;
 import javafx.event.EventHandler;
@@ -79,7 +80,7 @@ public class InertialDragSetupService {
 		});
 	}
 	
-	public static void setUpEnvironmentSettings(final Pane environmentalPane){
+	public static void setUpEnvironmentDrag(final Pane environmentalPane){
 		environmentalPane.setOnDragOver(new EventHandler<DragEvent>() {
 			public void handle(DragEvent event) {
 				Dragboard dragBoard = event.getDragboard();
