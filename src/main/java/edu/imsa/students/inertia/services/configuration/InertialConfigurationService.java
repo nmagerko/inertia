@@ -1,4 +1,4 @@
-package edu.imsa.students.inertia.conf;
+package edu.imsa.students.inertia.services.configuration;
 
 
 import java.io.File;
@@ -17,14 +17,14 @@ import org.apache.logging.log4j.LogManager;
  * @author nmagerko
  *
  */
-public class InertialConfigurationManager {
+public class InertialConfigurationService {
 	
 	private static final String PROJECT_CONF_PATH = "src/main/conf";
 	private static final String SYSTEM_CONF_PATH = "/system/";
 	private static final String ENV_CONF_PATH = "/environment/";
 	private static final String PROJECT_CONF_FILE_SUFFIX = ".conf.xml";
 	
-	private static Logger logger = LogManager.getLogger(InertialConfigurationManager.class);
+	private static Logger logger = LogManager.getLogger(InertialConfigurationService.class);
 	private static Map<String, XMLConfiguration> systemConfigurations = new HashMap<String, XMLConfiguration>();
 	
 	/**
@@ -60,7 +60,7 @@ public class InertialConfigurationManager {
 	 * @param identifier	the filename of the configuration, without the .conf.xml extension
 	 * @return	the XMLConfiguration-equivalent of the configuration file, if found
 	 */
-	public XMLConfiguration getConfiguration(String identifier){
+	public static XMLConfiguration getConfiguration(String identifier){
 		return systemConfigurations.get(identifier);
 	}
 	
@@ -70,7 +70,7 @@ public class InertialConfigurationManager {
 	 * @param identifier	the filename of the configuration, without the .conf.xml extension
 	 * @return	the XMLConfiguration-equivalent of the configuration file, if found
 	 */
-	public XMLConfiguration getEnvironmentalConfiguration(String identifier){
+	public static XMLConfiguration getEnvironmentalConfiguration(String identifier){
 		throw new UnsupportedOperationException("Accessing configurations that were saved live is unsupported");
 	}
 	
@@ -79,7 +79,7 @@ public class InertialConfigurationManager {
 	 * @param identifier	the filename of the configuration, without the .conf.xml extension
 	 * @param configurationData	the XMLConfiguration object to save
 	 */
-	public void setEnvironmentalConfiguration(String identifier, XMLConfiguration configurationData){
+	public static void setEnvironmentalConfiguration(String identifier, XMLConfiguration configurationData){
 		throw new UnsupportedOperationException("Saving configurations live is unsupported");
 	}
 }

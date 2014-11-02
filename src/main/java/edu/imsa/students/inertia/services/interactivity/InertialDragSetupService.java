@@ -2,9 +2,8 @@ package edu.imsa.students.inertia.services.interactivity;
 
 import javax.vecmath.Point2d;
 
-import edu.imsa.students.inertia.services.copy.InertialCopyService;
-import edu.imsa.students.inertia.world.objects.concept.InertialAttributes;
-import edu.imsa.students.inertia.world.objects.concept.InertialObject;
+import edu.imsa.students.inertia.services.transfer.InertialCopyService;
+import edu.imsa.students.inertia.shapes.bridge.InertialBridge;
 import javafx.event.EventHandler;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DataFormat;
@@ -19,23 +18,30 @@ public class InertialDragSetupService {
 	
 	public static final DataFormat MOUSE_DATA_FORMAT = new DataFormat("javax.vecmath.Point2d");
 	
-	private static void handleDragEvent(final Shape delegatedShape, final InertialAttributes delegatedAttributes, MouseEvent event){
-		Dragboard dragBoard = delegatedShape.startDragAndDrop(TransferMode.COPY);
+	private static <T extends Shape & InertialBridge> void handleMousePressedEvent(T inertialShape, MouseEvent event){
+		Point2d currentPosition = inertialShape.getPosition();
+		inertialShape.setLastInteractionPoint(new Point2d(event.getX() - currentPosition.x, 
+														  event.getY() - currentPosition.y));
+	}
+	
+	private static <T extends Shape & InertialBridge> void handleDragEvent(T inertialShape, MouseEvent event){
+		Dragboard dragBoard = inertialShape.startDragAndDrop(TransferMode.COPY);
 		ClipboardContent content = new ClipboardContent();
 		
-		// add the rectangle object's attributes as well as
-		// the mouse position on the rectangle to the dragboard
-		content.put(MOUSE_DATA_FORMAT, delegatedAttributes.getLastInteractionSite());
+		// add the shape object's attributes as well as
+		// the mouse position on the shape to the dragboard
+		content.put(MOUSE_DATA_FORMAT, inertialShape.getLastInteractionPoint());
 		dragBoard.setContent(content);
 		event.consume();
 	}
 	
-	private static void handleCopyEvent(final Pane environmentalPane) {
+	private static <T extends Shape & InertialBridge> void handleCopyEvent(final Pane environmentalPane) {
 		environmentalPane.setOnDragDropped(new EventHandler<DragEvent>() {
+			@SuppressWarnings("unchecked")
 			public void handle(DragEvent event) {
 				Dragboard dragBoard = event.getDragboard();
 				Point2d mousePosition = (Point2d) dragBoard.getContent(MOUSE_DATA_FORMAT);
-				InertialObject gestureSource = (InertialObject) event.getGestureSource();
+				T gestureSource = (T) event.getGestureSource();
 
 				InertialCopyService.copyObject(environmentalPane,gestureSource, event, mousePosition);
 				
@@ -50,50 +56,43 @@ public class InertialDragSetupService {
 		});
 	}
 	
-	public static void setUpObjectOnMousePressed(final InertialObject inertialObject){
-		final Shape delegatedShape = inertialObject.getDelegatedShape();
-		delegatedShape.setOnMousePressed(new EventHandler<MouseEvent>() {
+	public static <T extends Shape & InertialBridge> void setUpObjectOnMousePressed(final T inertialShape){
+		inertialShape.setOnMousePressed(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent event) {
-				Point2d currentPosition = inertialObject.getDelegatedAttributes().getPosition();
-				inertialObject.getDelegatedAttributes().setLastInteractionSite(new Point2d(event.getX() - currentPosition.x, event.getY() - currentPosition.y));
+				handleMousePressedEvent(inertialShape, event);
 			}
 		});
 	}
 	
-	public static void setUpObjectCopyDrag(final InertialObject inertialObject){
-		final Shape delegatedShape = inertialObject.getDelegatedShape();
-		final InertialAttributes delegatedAttributes = inertialObject.getDelegatedAttributes();
-		delegatedShape.setOnDragDetected(new EventHandler<MouseEvent>() {
+	public static <T extends Shape & InertialBridge> void setUpObjectCopyDrag(final T inertialShape){
+		inertialShape.setOnDragDetected(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent event) {
-				handleDragEvent(delegatedShape, delegatedAttributes, event);
+				handleDragEvent(inertialShape, event);
 			}
 		});
 	}
 	
-	public static void setUpObjectMoveDrag(final InertialObject inertialObject){
-		final Shape delegatedShape = inertialObject.getDelegatedShape();
-		final InertialAttributes delegatedAttributes = inertialObject.getDelegatedAttributes();
-		delegatedShape.setOnDragDetected(new EventHandler<MouseEvent>() {
+	public static <T extends Shape & InertialBridge> void setUpObjectMoveDrag(final T inertialShape){
+		inertialShape.setOnDragDetected(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent event) {
-				handleDragEvent(delegatedShape, delegatedAttributes, event);
+				handleDragEvent(inertialShape, event);
 			}
 		});
 	}
 	
-	public static void setUpEnvironmentDrag(final Pane environmentalPane){
+	public static <T extends Shape & InertialBridge> void setUpEnvironmentDrag(final Pane environmentalPane){
 		environmentalPane.setOnDragOver(new EventHandler<DragEvent>() {
+			@SuppressWarnings("unchecked")
 			public void handle(DragEvent event) {
 				Dragboard dragBoard = event.getDragboard();
 				Point2d mousePosition = (Point2d) dragBoard.getContent(MOUSE_DATA_FORMAT);
-				InertialObject gestureSource = (InertialObject) event.getGestureSource();
+				T gestureSource = (T) event.getGestureSource();
 				
 				double x = event.getX() - mousePosition.x;
 				double y = event.getY() - mousePosition.y;
 				Point2d newPosition = new Point2d(x, y);
 				
-				InertialAttributes currentSourceAttributes = gestureSource.getDelegatedAttributes();
-				currentSourceAttributes.setPosition(newPosition);
-				gestureSource.updateDelegatedAttributes();
+				gestureSource.setPosition(newPosition);
 				
 				if (event.getDragboard().hasContent(MOUSE_DATA_FORMAT) && event.getTransferMode() == TransferMode.COPY) {
 					event.acceptTransferModes(TransferMode.COPY);

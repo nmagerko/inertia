@@ -9,8 +9,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import edu.imsa.students.inertia.services.interactivity.InertialDragSetupService;
+import edu.imsa.students.inertia.shapes.InertialRectangle;
 import edu.imsa.students.inertia.world.InertialWorld;
-import edu.imsa.students.inertia.world.objects.InertialRectangle;
 
 public class InertialSupervisor {
 

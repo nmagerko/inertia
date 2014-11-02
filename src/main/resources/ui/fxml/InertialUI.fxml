@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import edu.imsa.students.inertia.world.objects.InertialRectangle?>
+<?import edu.imsa.students.inertia.shapes.InertialRectangle?>
 
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../css/caspian.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.imsa.students.inertia.InertialSupervisor">
