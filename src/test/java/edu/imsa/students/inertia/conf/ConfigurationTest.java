@@ -6,6 +6,8 @@ import org.apache.commons.configuration.XMLConfiguration;
 import org.junit.Before;
 import org.junit.Test;
 
+import edu.imsa.students.inertia.services.configuration.InertialConfigurationService;
+
 /**
  * Tests InertialConfigurationManger functionality
  * @author nmagerko
@@ -13,7 +15,6 @@ import org.junit.Test;
  */
 public class ConfigurationTest {
 	
-	private InertialConfigurationManager configurationManager;
 	private XMLConfiguration baseConfiguration;
 	
 	private final String APPLICATION_CONFIGURATION_KEY = "application";
@@ -25,8 +26,7 @@ public class ConfigurationTest {
 
 	@Before
 	public void setUp() throws Exception {
-		this.configurationManager = new InertialConfigurationManager();
-		this.baseConfiguration = configurationManager.getConfiguration(APPLICATION_CONFIGURATION_KEY);
+		this.baseConfiguration = InertialConfigurationService.getConfiguration(APPLICATION_CONFIGURATION_KEY);
 	}
 	
 	/**

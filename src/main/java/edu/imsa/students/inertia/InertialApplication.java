@@ -2,7 +2,7 @@ package edu.imsa.students.inertia;
 
 import java.net.URL;
 
-import edu.imsa.students.inertia.conf.InertialConfigurationManager;
+import edu.imsa.students.inertia.services.configuration.InertialConfigurationService;
 import edu.imsa.students.inertia.world.InertialWorld;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -38,8 +38,9 @@ public class InertialApplication extends Application {
 	}
 	
 	private void configureDefaultWorldProprties(InertialWorld world){
-		world.setGravitationalAcceleration(configuration.getDouble("world.defaults.gravitational-acceleration", 0));
-		world.setAirResistance(configuration.getDouble("world.defaults.air-resistance", 0));
+		// TODO: complete World implementation then rewrite below
+		// world.setGravitationalAcceleration(configuration.getDouble("world.defaults.gravitational-acceleration", 0));
+		// world.setAirResistance(configuration.getDouble("world.defaults.air-resistance", 0));
 	}
 	
 	/**
@@ -69,8 +70,7 @@ public class InertialApplication extends Application {
 	public InertialApplication(){
 		logger.info("Initializing application subsystems");
 		
-		InertialConfigurationManager configurationManager = new InertialConfigurationManager();
-		this.configuration = configurationManager.getConfiguration("application");
+		this.configuration = InertialConfigurationService.getConfiguration("application");
 	}
 	
 	@Override
