@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+    <application>
+        <name>Inertia</name>
+        <version>0.0.2</version>
+    </application>
+	<ui>
+		<defaults>
+		    <title>Inertia</title>
+			<width>1450</width>
+			<height>815</height>
+		</defaults>
+	</ui>
+	<world>
+	    <defaults>
+	        <gravitational-acceleration>-9.8</gravitational-acceleration>
+	    	<air-resistance>0.0</air-resistance>
+	    </defaults>
+	</world>
+</config>
