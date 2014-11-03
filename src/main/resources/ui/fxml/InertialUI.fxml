@@ -11,6 +11,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import edu.imsa.students.inertia.shapes.InertialRectangle?>
+<?import edu.imsa.students.inertia.shapes.InertialTriangle?>
 <?import edu.imsa.students.inertia.shapes.InertialCircle?>
 
 
@@ -46,6 +47,11 @@
                   <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                </VBox.margin>
             </InertialRectangle>
+            <InertialTriangle fx:id="triangle" fill="BLACK" scale="1.0" stroke="WHITE" strokeType="INSIDE">
+               <VBox.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </VBox.margin>
+            </InertialTriangle>
          </children></VBox>
 	</left>
    <bottom>
