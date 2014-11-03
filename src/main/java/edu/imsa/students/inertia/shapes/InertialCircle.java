@@ -16,31 +16,35 @@ public class InertialCircle extends Circle implements InertialBridge  {
 	private InertialAttributes attributes;
 	private Point2d lastIneractionPoint;
 	
-	private void initializeInteractivity(){
+	private void initializeMoveInteractivity(){
 		InertialDragSetupService.setUpObjectOnMousePressed(this);
 		InertialDragSetupService.setUpObjectMoveDrag(this);
-		// we can also set up copy drag
+	}
+	
+	private void initializeCopyInteractivity(){
+		InertialDragSetupService.setUpObjectOnMousePressed(this);
+		InertialDragSetupService.setUpObjectCopyDrag(this);
 	}
 	
 	public InertialCircle(){
 		super(DEFAULT_RADIUS);
 		
 		this.attributes = new InertialAttributes();
-		this.initializeInteractivity();
+		this.initializeCopyInteractivity();
 	}
 	
 	public InertialCircle(Point2d position, Double radius){
 		super(position.x, position.y, radius);
 		
 		this.attributes = new InertialAttributes();
-		this.initializeInteractivity();
+		this.initializeMoveInteractivity();
 	}
 	
 	public InertialCircle(Point2d position, Double radius, InertialAttributes attributes) {
 		super(position.x, position.y, radius);
 		
 		this.attributes = attributes;
-		this.initializeInteractivity();
+		this.initializeMoveInteractivity();
 	}	
 
 	@Override

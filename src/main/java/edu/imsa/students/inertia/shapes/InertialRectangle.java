@@ -16,31 +16,35 @@ public class InertialRectangle extends Rectangle implements InertialBridge {
 	private InertialAttributes attributes;
 	private Point2d lastInteractionPoint;
 	
-	private void initializeInteractivity(){
+	private void initializeMoveInteractivity(){
 		InertialDragSetupService.setUpObjectOnMousePressed(this);
 		InertialDragSetupService.setUpObjectMoveDrag(this);
-		// we can also set up copy drag
+	}
+	
+	private void initializeCopyInteractivity(){
+		InertialDragSetupService.setUpObjectOnMousePressed(this);
+		InertialDragSetupService.setUpObjectCopyDrag(this);
 	}
 	
 	public InertialRectangle(){
 		super(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		
 		this.attributes = new InertialAttributes();
-		this.initializeInteractivity();
+		this.initializeCopyInteractivity();
 	}
 	
 	public InertialRectangle(Point2d position, Double width, Double height){
 		super(position.x, position.y, width, height);
 		
 		this.attributes = new InertialAttributes();
-		this.initializeInteractivity();
+		this.initializeMoveInteractivity();
 	}
 	
 	public InertialRectangle(Point2d position, Double width, Double height, InertialAttributes attributes) {
 		super(position.x, position.y, width, height);
 		
 		this.attributes = attributes;
-		this.initializeInteractivity();
+		this.initializeMoveInteractivity();
 	}
 
 	@Override

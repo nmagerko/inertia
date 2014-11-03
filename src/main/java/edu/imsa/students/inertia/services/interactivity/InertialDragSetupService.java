@@ -24,8 +24,19 @@ public class InertialDragSetupService {
 														  event.getY() - currentPosition.y));
 	}
 	
-	private static <T extends Shape & InertialBridge> void handleDragEvent(T inertialShape, MouseEvent event){
+	private static <T extends Shape & InertialBridge> void handleCopyDragEvent(T inertialShape, MouseEvent event){
 		Dragboard dragBoard = inertialShape.startDragAndDrop(TransferMode.COPY);
+		ClipboardContent content = new ClipboardContent();
+		
+		// add the shape object's attributes as well as
+		// the mouse position on the shape to the dragboard
+		content.put(MOUSE_DATA_FORMAT, inertialShape.getLastInteractionPoint());
+		dragBoard.setContent(content);
+		event.consume();
+	}
+	
+	private static <T extends Shape & InertialBridge> void handleMoveDragEvent(T inertialShape, MouseEvent event){
+		Dragboard dragBoard = inertialShape.startDragAndDrop(TransferMode.MOVE);
 		ClipboardContent content = new ClipboardContent();
 		
 		// add the shape object's attributes as well as
@@ -67,7 +78,7 @@ public class InertialDragSetupService {
 	public static <T extends Shape & InertialBridge> void setUpObjectCopyDrag(final T inertialShape){
 		inertialShape.setOnDragDetected(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent event) {
-				handleDragEvent(inertialShape, event);
+				handleCopyDragEvent(inertialShape, event);
 			}
 		});
 	}
@@ -75,7 +86,7 @@ public class InertialDragSetupService {
 	public static <T extends Shape & InertialBridge> void setUpObjectMoveDrag(final T inertialShape){
 		inertialShape.setOnDragDetected(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent event) {
-				handleDragEvent(inertialShape, event);
+				handleMoveDragEvent(inertialShape, event);
 			}
 		});
 	}
@@ -87,7 +98,6 @@ public class InertialDragSetupService {
 				Dragboard dragBoard = event.getDragboard();
 				Point2d mousePosition = (Point2d) dragBoard.getContent(MOUSE_DATA_FORMAT);
 				T gestureSource = (T) event.getGestureSource();
-				
 				double x = event.getX() - mousePosition.x;
 				double y = event.getY() - mousePosition.y;
 				Point2d newPosition = new Point2d(x, y);
