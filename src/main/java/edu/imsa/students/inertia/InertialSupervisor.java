@@ -12,7 +12,7 @@ import edu.imsa.students.inertia.shapes.InertialCircle;
 import edu.imsa.students.inertia.shapes.InertialRectangle;
 import edu.imsa.students.inertia.shapes.InertialTriangle;
 import edu.imsa.students.inertia.shapes.InertialPentagon;
-import edu.imsa.students.inertia.InertialWorld;
+import edu.imsa.students.inertia.world.InertialWorld;
 
 public class InertialSupervisor {
 

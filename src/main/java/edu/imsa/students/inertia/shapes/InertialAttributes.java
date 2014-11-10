@@ -37,6 +37,7 @@ public class InertialAttributes {
 		this.mass = mass;
 		this.velocity = velocity;
 		this.acceleration = acceleration;
+		forces.add(gravity);
 	}
 
 	public Double getMass() {
@@ -67,12 +68,14 @@ public class InertialAttributes {
 		forces.add(force);
 	}
 
-	public void applyForces()
+	public void applyForces(double timeStep)
 	{
 		acceleration.set(0,0);
 		for(InertialForce force: forces)
 		{
-			acceleration.add(force.computedAcceleration(mass));
+			Vector2d forceStep = new Vector2d(force.computedAcceleration(mass).x, force.computedAcceleration(mass).y);
+			forceStep.scale(timeStep);
+			acceleration.add(forceStep);
 		}
 	}
 	

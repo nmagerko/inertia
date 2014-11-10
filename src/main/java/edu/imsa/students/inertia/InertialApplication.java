@@ -6,15 +6,23 @@ import java.util.ArrayList;
 import edu.imsa.students.inertia.services.configuration.InertialConfigurationService;
 import edu.imsa.students.inertia.services.physics.InertialPhysicsService;
 import edu.imsa.students.inertia.shapes.bridge.InertialBridge;
-import edu.imsa.students.inertia.InertialWorld;
+import edu.imsa.students.inertia.world.InertialWorld;
+import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import org.apache.commons.configuration.XMLConfiguration;
 import org.apache.logging.log4j.LogManager;
@@ -102,11 +110,42 @@ public class InertialApplication extends Application {
 		
 		// setup drag-and-drop
 		supervisor.setDragAndDropSettings();
-		while(true){
-			ArrayList<InertialBridge> objectList = world.getObjects();
-			InertialPhysicsService.advance(objectList);
-			wait(100);
-		}
+		
+		
+		//Set up animation of objects
+		final LongProperty lastUpdate = new SimpleLongProperty();
+		final long minUpdateInterval = 10000 ; // nanoseconds. Set to higher number to slow output.
+
+		
+		
+		final double updateInterval = 0.01;
+		Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(updateInterval), new EventHandler<ActionEvent>() {
+
+		    @Override
+		    public void handle(ActionEvent event) {
+    			ArrayList<InertialBridge> objectList = InertialWorld.getObjects();
+    			InertialPhysicsService.advance(objectList, 10*updateInterval);
+		    }
+		}));
+		fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
+		fiveSecondsWonder.play();
+		/**
+        AnimationTimer timer = new AnimationTimer() {
+
+            @Override
+            public void handle(long now) {
+            	System.out.println(now - lastUpdate.get());
+                if (now - lastUpdate.get() > minUpdateInterval) {
+        			ArrayList<InertialBridge> objectList = InertialWorld.getObjects();
+        			InertialPhysicsService.advance(objectList);
+                    lastUpdate.set(now);
+                }
+            }
+
+        };
+
+        timer.start();
+            **/
 		
 	}
 	

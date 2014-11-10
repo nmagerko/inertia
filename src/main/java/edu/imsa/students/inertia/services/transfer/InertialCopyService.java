@@ -6,8 +6,8 @@ import javafx.scene.shape.Shape;
 
 import javax.vecmath.Point2d;
 
-import edu.imsa.students.inertia.InertialWorld;
 import edu.imsa.students.inertia.shapes.bridge.InertialBridge;
+import edu.imsa.students.inertia.world.InertialWorld;
 
 public class InertialCopyService {
 	
