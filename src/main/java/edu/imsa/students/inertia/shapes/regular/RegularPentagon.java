@@ -1,8 +1,6 @@
 package edu.imsa.students.inertia.shapes.regular;
 
-import javafx.scene.shape.Polygon;
-
-public class RegularPentagon extends Polygon{
+public class RegularPentagon extends RegularShapeBase{
 
 	private static double[] points = { (double) 50,(double) 0,
 								(double) 2,(double) 35,
@@ -12,6 +10,15 @@ public class RegularPentagon extends Polygon{
 								};
 	public RegularPentagon(){
 		super(points);
+	}
+	
+	public RegularPentagon(double scale){
+		super(points, scale);
+	}
+	
+
+	public RegularPentagon(Double x, Double y, Double scale) {
+		super(points, x, y, scale);
 	}
 	
 }

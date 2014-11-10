@@ -11,6 +11,7 @@ import edu.imsa.students.inertia.services.interactivity.InertialDragSetupService
 import edu.imsa.students.inertia.shapes.InertialCircle;
 import edu.imsa.students.inertia.shapes.InertialRectangle;
 import edu.imsa.students.inertia.shapes.InertialTriangle;
+import edu.imsa.students.inertia.shapes.InertialPentagon;
 import edu.imsa.students.inertia.world.InertialWorld;
 
 public class InertialSupervisor {
@@ -23,6 +24,8 @@ public class InertialSupervisor {
 	InertialTriangle triangle;
 	@FXML
 	InertialRectangle square;
+	@FXML
+	InertialPentagon pentagon;
 	@FXML
 	ToggleButton play;
 	@FXML
