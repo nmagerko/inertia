@@ -1,10 +1,14 @@
 package edu.imsa.students.inertia;
 
 import java.net.URL;
+import java.util.ArrayList;
 
 import edu.imsa.students.inertia.services.configuration.InertialConfigurationService;
-import edu.imsa.students.inertia.world.InertialWorld;
+import edu.imsa.students.inertia.services.physics.InertialPhysicsService;
+import edu.imsa.students.inertia.shapes.bridge.InertialBridge;
+import edu.imsa.students.inertia.InertialWorld;
 import javafx.application.Application;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
@@ -74,7 +78,7 @@ public class InertialApplication extends Application {
 	}
 	
 	@Override
-	public void start(Stage stage) {
+	public void start(Stage stage) throws InterruptedException {
 		logger.info("Setting up graphical interface");
 		
 		// the loader, root, and scene are initialized in the following
@@ -83,7 +87,7 @@ public class InertialApplication extends Application {
 		FXMLLoader loader = new FXMLLoader();
 		Parent root = configureSceneParent(loader);
 		Scene scene = new Scene(root);
-		InertialWorld world = new InertialWorld();
+		final InertialWorld world = InertialWorld.getWorld();
 		InertialSupervisor supervisor = loader.getController();
 		
 		// set default scene properties
@@ -98,6 +102,12 @@ public class InertialApplication extends Application {
 		
 		// setup drag-and-drop
 		supervisor.setDragAndDropSettings();
+		while(true){
+			ArrayList<InertialBridge> objectList = world.getObjects();
+			InertialPhysicsService.advance(objectList);
+			wait(100);
+		}
+		
 	}
 	
 	public static void main(String[] args) {

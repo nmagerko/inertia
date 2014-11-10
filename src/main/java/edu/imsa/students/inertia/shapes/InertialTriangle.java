@@ -1,7 +1,6 @@
 package edu.imsa.students.inertia.shapes;
 
 import javax.vecmath.Point2d;
-
 import edu.imsa.students.inertia.services.interactivity.InertialDragSetupService;
 import edu.imsa.students.inertia.shapes.bridge.InertialBridge;
 import edu.imsa.students.inertia.shapes.regular.RegularTriangle;
@@ -81,5 +80,5 @@ public class InertialTriangle extends RegularTriangle implements InertialBridge 
 		// the clone is returned without its parent's InertialAttributes
 		return new InertialTriangle(new Point2d(this.getX(), this.getY()), DEFAULT_SCALE);
 	}
-
+	
 }

@@ -1,5 +1,6 @@
 package edu.imsa.students.inertia.shapes;
 
+
 import javafx.scene.shape.Rectangle;
 
 import javax.vecmath.Point2d;

@@ -6,6 +6,7 @@ import javafx.scene.shape.Shape;
 
 import javax.vecmath.Point2d;
 
+import edu.imsa.students.inertia.InertialWorld;
 import edu.imsa.students.inertia.shapes.bridge.InertialBridge;
 
 public class InertialCopyService {
@@ -24,7 +25,7 @@ public class InertialCopyService {
 		// Add the rectangle to the pane
 		environmentalPane.getChildren().add(newShape);
 		environmentalPane.setVisible(true);
-
+		InertialWorld.getWorld().addObject(newShape);
 	}
 
 }
