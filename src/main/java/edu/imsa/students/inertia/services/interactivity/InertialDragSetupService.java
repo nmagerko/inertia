@@ -5,6 +5,7 @@ import javax.vecmath.Point2d;
 import edu.imsa.students.inertia.services.transfer.InertialCopyService;
 import edu.imsa.students.inertia.shapes.bridge.InertialBridge;
 import javafx.event.EventHandler;
+import javafx.scene.image.Image;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DataFormat;
 import javafx.scene.input.DragEvent;
@@ -20,6 +21,7 @@ public class InertialDragSetupService {
 	
 	private static <T extends Shape & InertialBridge> void handleMousePressedEvent(T inertialShape, MouseEvent event){
 		Point2d currentPosition = inertialShape.getPosition();
+		//point of mouse press in reference of shape pressed
 		inertialShape.setLastInteractionPoint(new Point2d(event.getSceneX() - currentPosition.x, 
 														  event.getSceneY() - currentPosition.y));
 	}
@@ -32,6 +34,13 @@ public class InertialDragSetupService {
 		// the mouse position on the shape to the dragboard
 		content.put(MOUSE_DATA_FORMAT, inertialShape.getLastInteractionPoint());
 		dragBoard.setContent(content);
+		
+		//Add an opaque snapshot to be shown as the user copies the objects
+		Image snapshot = inertialShape.snapshot(null, null);
+		dragBoard.setDragView(snapshot);
+		dragBoard.setDragViewOffsetX(event.getSceneX() - inertialShape.getPosition().x);
+		dragBoard.setDragViewOffsetY(event.getSceneY() - inertialShape.getPosition().y);
+		
 		event.consume();
 	}
 	
@@ -95,6 +104,7 @@ public class InertialDragSetupService {
 		environmentalPane.setOnDragOver(new EventHandler<DragEvent>() {
 			@SuppressWarnings("unchecked")
 			public void handle(DragEvent event) {
+				
 				Dragboard dragBoard = event.getDragboard();
 				Point2d mousePosition = (Point2d) dragBoard.getContent(MOUSE_DATA_FORMAT);
 				T gestureSource = (T) event.getGestureSource();

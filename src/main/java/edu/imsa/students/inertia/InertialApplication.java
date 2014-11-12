@@ -7,13 +7,9 @@ import edu.imsa.students.inertia.services.configuration.InertialConfigurationSer
 import edu.imsa.students.inertia.services.physics.InertialPhysicsService;
 import edu.imsa.students.inertia.shapes.bridge.InertialBridge;
 import edu.imsa.students.inertia.world.InertialWorld;
-import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.beans.property.LongProperty;
-import javafx.beans.property.SimpleLongProperty;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -113,9 +109,10 @@ public class InertialApplication extends Application {
 		supervisor.inertialPane.setStyle("-fx-background-color: WHITESMOKE;\n"
 				+ "-fx-border-color: LIGHTGRAY;\n"
 				+ "-fx-border-width: 2;\n");
-			
+	
+		//Animations set up
 		final double updateInterval = 0.01;
-		Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(updateInterval), new EventHandler<ActionEvent>() {
+		Timeline animator = new Timeline(new KeyFrame(Duration.seconds(updateInterval), new EventHandler<ActionEvent>() {
 
 		    @Override
 		    public void handle(ActionEvent event) {
@@ -123,8 +120,8 @@ public class InertialApplication extends Application {
     			InertialPhysicsService.advance(objectList, 10*updateInterval);
 		    }
 		}));
-		fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
-		fiveSecondsWonder.play();
+		animator.setCycleCount(Timeline.INDEFINITE);
+		animator.play();
 		
 	}
 	
