@@ -16,10 +16,10 @@ import edu.imsa.students.inertia.services.physics.force.InertialForce;
  */
 public class InertialAttributes {
 	
-	private static final Double DEFAULT_MASS = new Double(1.0);
-	private static final Vector2d DEFAULT_VELOCITY = new Vector2d(0, 0);
-	private static final Vector2d DEFAULT_ACCELERATION = new Vector2d(0, 0);
-	private static final GravityForce gravity = new GravityForce();
+	private final Double DEFAULT_MASS = new Double(1.0);
+	private final Vector2d DEFAULT_VELOCITY = new Vector2d(0, 0);
+	private final Vector2d DEFAULT_ACCELERATION = new Vector2d(0, 0);
+	private final GravityForce gravity = new GravityForce();
 
 	private Double mass;
 	private Vector2d acceleration;
@@ -70,12 +70,10 @@ public class InertialAttributes {
 
 	public void applyForces(double timeStep)
 	{
-		acceleration.set(0,0);
 		for(InertialForce force: forces)
 		{
 			Vector2d forceStep = new Vector2d(force.computedAcceleration(mass).x, force.computedAcceleration(mass).y);
-			forceStep.scale(timeStep);
-			acceleration.add(forceStep);
+			acceleration.set(forceStep);
 		}
 	}
 	

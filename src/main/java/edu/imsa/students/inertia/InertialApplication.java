@@ -110,14 +110,7 @@ public class InertialApplication extends Application {
 		
 		// setup drag-and-drop
 		supervisor.setDragAndDropSettings();
-		
-		
-		//Set up animation of objects
-		final LongProperty lastUpdate = new SimpleLongProperty();
-		final long minUpdateInterval = 10000 ; // nanoseconds. Set to higher number to slow output.
-
-		
-		
+			
 		final double updateInterval = 0.01;
 		Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(updateInterval), new EventHandler<ActionEvent>() {
 

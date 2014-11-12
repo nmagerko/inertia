@@ -25,7 +25,7 @@ public class InertialCopyService {
 		// Add the rectangle to the pane
 		environmentalPane.getChildren().add(newShape);
 		environmentalPane.setVisible(true);
-		InertialWorld.getWorld().addObject(newShape);
+		InertialWorld.addObject(newShape);
 	}
 
 }
