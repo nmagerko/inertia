@@ -6,6 +6,7 @@ import javafx.scene.shape.Shape;
 
 import javax.vecmath.Point2d;
 
+import edu.imsa.students.inertia.InertialSupervisor;
 import edu.imsa.students.inertia.shapes.bridge.InertialBridge;
 import edu.imsa.students.inertia.world.InertialWorld;
 

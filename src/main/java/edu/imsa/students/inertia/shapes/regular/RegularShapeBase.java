@@ -24,7 +24,7 @@ public class RegularShapeBase extends Polygon {
 	}
 
 	public Double getY() {
-		return getTranslateY();
+		return getLayoutY();
 	}
 
 	public void setY(Double y) {
@@ -32,7 +32,7 @@ public class RegularShapeBase extends Polygon {
 	}
 
 	public Double getX() {
-		return getTranslateX();
+		return getLayoutX();
 	}
 
 	public void setX(Double x) {
@@ -48,4 +48,5 @@ public class RegularShapeBase extends Polygon {
 		setScaleX(scale);
 		setScaleY(scale);
 	}
+	
 }

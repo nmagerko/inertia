@@ -60,13 +60,13 @@ public class InertialRectangle extends Rectangle implements InertialBridge {
 	
 	@Override
 	public void setPosition(Point2d position) {
-		this.setX(position.x);
-		this.setY(position.y);
+		this.setLayoutX(position.x);
+		this.setLayoutY(position.y);
 	}
 
 	@Override
 	public Point2d getPosition() {
-		return new Point2d(this.getX(), this.getY());
+		return new Point2d(this.getLayoutX(), this.getLayoutY());
 	}
 
 	@Override

@@ -61,13 +61,13 @@ public class InertialCircle extends Circle implements InertialBridge  {
 	
 	@Override
 	public void setPosition(Point2d position) {
-		this.setCenterX(position.x);
-		this.setCenterY(position.y);
+		this.setLayoutX(position.x);
+		this.setLayoutY(position.y);
 	}
 
 	@Override
 	public Point2d getPosition() {
-		return new Point2d(this.getCenterX(), this.getCenterY());
+		return new Point2d(this.getLayoutX(), this.getLayoutY());
 	}
 
 	@Override
@@ -86,5 +86,5 @@ public class InertialCircle extends Circle implements InertialBridge  {
 		// the clone is returned without its parent's InertialAttributes
 		return new InertialCircle(new Point2d(this.getCenterX(), this.getCenterY()), this.getRadius());
 	}
-
+	
 }

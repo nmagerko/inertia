@@ -20,8 +20,8 @@ public class InertialDragSetupService {
 	
 	private static <T extends Shape & InertialBridge> void handleMousePressedEvent(T inertialShape, MouseEvent event){
 		Point2d currentPosition = inertialShape.getPosition();
-		inertialShape.setLastInteractionPoint(new Point2d(event.getX() - currentPosition.x, 
-														  event.getY() - currentPosition.y));
+		inertialShape.setLastInteractionPoint(new Point2d(event.getSceneX() - currentPosition.x, 
+														  event.getSceneY() - currentPosition.y));
 	}
 	
 	private static <T extends Shape & InertialBridge> void handleCopyDragEvent(T inertialShape, MouseEvent event){
@@ -98,8 +98,8 @@ public class InertialDragSetupService {
 				Dragboard dragBoard = event.getDragboard();
 				Point2d mousePosition = (Point2d) dragBoard.getContent(MOUSE_DATA_FORMAT);
 				T gestureSource = (T) event.getGestureSource();
-				double x = event.getX() - mousePosition.x;
-				double y = event.getY() - mousePosition.y;
+				double x = event.getSceneX() - mousePosition.x;
+				double y = event.getSceneY() - mousePosition.y;
 				Point2d newPosition = new Point2d(x, y);
 				
 				gestureSource.setPosition(newPosition);
