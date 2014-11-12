@@ -1,6 +1,8 @@
 package edu.imsa.students.inertia.shapes;
 
 
+import javafx.scene.paint.Paint;
+
 import javax.vecmath.Point2d;
 
 import edu.imsa.students.inertia.services.interactivity.InertialDragSetupService;
@@ -33,6 +35,13 @@ public class InertialPentagon extends RegularPentagon implements InertialBridge 
 	public InertialPentagon(Point2d position, Double scale){
 		super(position.x, position.y, scale);
 		
+		this.attributes = new InertialAttributes();
+		this.initializeMoveInteractivity();
+	}
+	
+	public InertialPentagon(Point2d position, Double scale, Paint paint){
+		super(position.x, position.y, scale);
+		this.setFill(paint);
 		this.attributes = new InertialAttributes();
 		this.initializeMoveInteractivity();
 	}
@@ -80,6 +89,6 @@ public class InertialPentagon extends RegularPentagon implements InertialBridge 
 	@Override
 	public InertialPentagon getRawClone(){
 		// the clone is returned without its parent's InertialAttributes
-		return new InertialPentagon(new Point2d(this.getX(), this.getY()), DEFAULT_SCALE);
+		return new InertialPentagon(new Point2d(this.getX(), this.getY()), DEFAULT_SCALE, this.getFill());
 	}
 }

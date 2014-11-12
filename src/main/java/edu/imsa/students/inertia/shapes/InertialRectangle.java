@@ -1,6 +1,7 @@
 package edu.imsa.students.inertia.shapes;
 
 
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 import javax.vecmath.Point2d;
@@ -37,6 +38,13 @@ public class InertialRectangle extends Rectangle implements InertialBridge {
 	public InertialRectangle(Point2d position, Double width, Double height){
 		super(position.x, position.y, width, height);
 		
+		this.attributes = new InertialAttributes();
+		this.initializeMoveInteractivity();
+	}
+	
+	public InertialRectangle(Point2d position, Double width, Double height, Paint paint){
+		super(position.x, position.y, width, height);
+		this.setFill(paint);
 		this.attributes = new InertialAttributes();
 		this.initializeMoveInteractivity();
 	}
@@ -84,6 +92,6 @@ public class InertialRectangle extends Rectangle implements InertialBridge {
 	@Override
 	public InertialRectangle getRawClone(){
 		// the clone is returned without its parent's InertialAttributes
-		return new InertialRectangle(new Point2d(this.getX(), this.getY()), this.getWidth(), this.getHeight());
+		return new InertialRectangle(new Point2d(this.getX(), this.getY()), this.getWidth(), this.getHeight(), this.getFill());
 	}
 }

@@ -1,6 +1,9 @@
 package edu.imsa.students.inertia.shapes;
 
+import javafx.scene.paint.Paint;
+
 import javax.vecmath.Point2d;
+
 import edu.imsa.students.inertia.services.interactivity.InertialDragSetupService;
 import edu.imsa.students.inertia.shapes.bridge.InertialBridge;
 import edu.imsa.students.inertia.shapes.regular.RegularTriangle;
@@ -31,6 +34,13 @@ public class InertialTriangle extends RegularTriangle implements InertialBridge 
 	public InertialTriangle(Point2d position, Double scale){
 		super(position.x, position.y, scale);
 		
+		this.attributes = new InertialAttributes();
+		this.initializeMoveInteractivity();
+	}
+	
+	public InertialTriangle(Point2d position, Double scale, Paint paint){
+		super(position.x, position.y, scale);
+		this.setFill(paint);
 		this.attributes = new InertialAttributes();
 		this.initializeMoveInteractivity();
 	}
@@ -78,7 +88,7 @@ public class InertialTriangle extends RegularTriangle implements InertialBridge 
 	@Override
 	public InertialTriangle getRawClone(){
 		// the clone is returned without its parent's InertialAttributes
-		return new InertialTriangle(new Point2d(this.getX(), this.getY()), DEFAULT_SCALE);
+		return new InertialTriangle(new Point2d(this.getX(), this.getY()), DEFAULT_SCALE, this.getFill());
 	}
 	
 }

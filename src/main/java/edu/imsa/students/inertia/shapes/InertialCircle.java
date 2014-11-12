@@ -2,6 +2,8 @@ package edu.imsa.students.inertia.shapes;
 
 
 
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
 import javax.vecmath.Point2d;
@@ -38,6 +40,13 @@ public class InertialCircle extends Circle implements InertialBridge  {
 	public InertialCircle(Point2d position, Double radius){
 		super(position.x, position.y, radius);
 		
+		this.attributes = new InertialAttributes();
+		this.initializeMoveInteractivity();
+	}
+	
+	public InertialCircle(Point2d position, Double radius, Paint paint){
+		super(position.x, position.y, radius);
+		this.setFill(paint);
 		this.attributes = new InertialAttributes();
 		this.initializeMoveInteractivity();
 	}
@@ -84,7 +93,7 @@ public class InertialCircle extends Circle implements InertialBridge  {
 	@Override
 	public InertialCircle getRawClone(){
 		// the clone is returned without its parent's InertialAttributes
-		return new InertialCircle(new Point2d(this.getCenterX(), this.getCenterY()), this.getRadius());
+		return new InertialCircle(new Point2d(this.getCenterX(), this.getCenterY()), this.getRadius(), this.getFill());
 	}
 	
 }
