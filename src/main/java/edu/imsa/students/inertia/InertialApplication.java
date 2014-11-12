@@ -110,6 +110,9 @@ public class InertialApplication extends Application {
 		
 		// setup drag-and-drop
 		supervisor.setDragAndDropSettings();
+		supervisor.inertialPane.setStyle("-fx-background-color: WHITESMOKE;\n"
+				+ "-fx-border-color: LIGHTGRAY;\n"
+				+ "-fx-border-width: 2;\n");
 			
 		final double updateInterval = 0.01;
 		Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(updateInterval), new EventHandler<ActionEvent>() {
@@ -122,23 +125,6 @@ public class InertialApplication extends Application {
 		}));
 		fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
 		fiveSecondsWonder.play();
-		/**
-        AnimationTimer timer = new AnimationTimer() {
-
-            @Override
-            public void handle(long now) {
-            	System.out.println(now - lastUpdate.get());
-                if (now - lastUpdate.get() > minUpdateInterval) {
-        			ArrayList<InertialBridge> objectList = InertialWorld.getObjects();
-        			InertialPhysicsService.advance(objectList);
-                    lastUpdate.set(now);
-                }
-            }
-
-        };
-
-        timer.start();
-            **/
 		
 	}
 	
