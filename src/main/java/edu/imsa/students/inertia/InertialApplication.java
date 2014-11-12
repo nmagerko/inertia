@@ -7,13 +7,9 @@ import edu.imsa.students.inertia.services.configuration.InertialConfigurationSer
 import edu.imsa.students.inertia.services.physics.InertialPhysicsService;
 import edu.imsa.students.inertia.shapes.bridge.InertialBridge;
 import edu.imsa.students.inertia.world.InertialWorld;
-import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.beans.property.LongProperty;
-import javafx.beans.property.SimpleLongProperty;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -126,23 +122,6 @@ public class InertialApplication extends Application {
 		}));
 		animator.setCycleCount(Timeline.INDEFINITE);
 		animator.play();
-		/**
-        AnimationTimer timer = new AnimationTimer() {
-
-            @Override
-            public void handle(long now) {
-            	System.out.println(now - lastUpdate.get());
-                if (now - lastUpdate.get() > minUpdateInterval) {
-        			ArrayList<InertialBridge> objectList = InertialWorld.getObjects();
-        			InertialPhysicsService.advance(objectList);
-                    lastUpdate.set(now);
-                }
-            }
-
-        };
-
-        timer.start();
-            **/
 		
 	}
 	
