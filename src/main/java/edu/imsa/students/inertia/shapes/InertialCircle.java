@@ -76,6 +76,7 @@ public class InertialCircle extends Circle implements InertialBridge  {
 	public Point2d getPosition() {
 		return new Point2d(this.getLayoutX(), this.getLayoutY());
 	}
+	
 
 	@Override
 	public void setLastInteractionPoint(Point2d updatedInteractionPoint) {

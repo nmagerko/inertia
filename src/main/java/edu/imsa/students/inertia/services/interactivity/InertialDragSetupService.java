@@ -32,14 +32,15 @@ public class InertialDragSetupService {
 		
 		// add the shape object's attributes as well as
 		// the mouse position on the shape to the dragboard
-		content.put(MOUSE_DATA_FORMAT, inertialShape.getLastInteractionPoint());
+		Point2d lastInteractionPoint = inertialShape.getLastInteractionPoint();
+		content.put(MOUSE_DATA_FORMAT, lastInteractionPoint);
 		dragBoard.setContent(content);
 		
 		//Add an opaque snapshot to be shown as the user copies the objects
 		Image snapshot = inertialShape.snapshot(null, null);
 		dragBoard.setDragView(snapshot);
-		dragBoard.setDragViewOffsetX(event.getSceneX() - inertialShape.getPosition().x);
-		dragBoard.setDragViewOffsetY(event.getSceneY() - inertialShape.getPosition().y);
+		dragBoard.setDragViewOffsetX(lastInteractionPoint.x);
+		dragBoard.setDragViewOffsetY(lastInteractionPoint.y);
 		
 		event.consume();
 	}
