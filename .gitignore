@@ -3,6 +3,7 @@
 # Eclipse
 .classpath
 .project
+.settings
 .settings/
 
 # Intellij
@@ -24,3 +25,6 @@ target/
 *.jar
 *.war
 *.ear
+
+# Project #
+src/main/resources/logs/
