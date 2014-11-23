@@ -3,8 +3,6 @@ package edu.imsa.students.inertia;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import edu.imsa.students.inertia.services.interactivity.InertialDragSetupService;
@@ -27,10 +25,6 @@ public class InertialSupervisor {
 	@FXML
 	InertialPentagon pentagon;
 	@FXML
-	ToggleButton play;
-	@FXML
-	ImageView image;
-	@FXML
 	Pane inertialPane;
 	@FXML
 	AnchorPane upperDetailsPane;
@@ -51,15 +45,6 @@ public class InertialSupervisor {
 	@FXML
 	private void tryPlaceSquare() {
 
-	}
-
-	@FXML
-	private void playPauseSimulation() {
-		if (play.getText().toLowerCase().equals("run")) {
-			play.setText("RUNNING");
-		} else {
-			play.setText("RUN");
-		}
 	}
 
 	@FXML
