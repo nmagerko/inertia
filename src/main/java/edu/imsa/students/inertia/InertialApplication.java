@@ -1,16 +1,24 @@
 package edu.imsa.students.inertia;
 
 import java.net.URL;
+import java.util.ArrayList;
 
 import edu.imsa.students.inertia.services.configuration.InertialConfigurationService;
+import edu.imsa.students.inertia.services.physics.InertialPhysicsService;
+import edu.imsa.students.inertia.shapes.bridge.InertialBridge;
 import edu.imsa.students.inertia.world.InertialWorld;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import org.apache.commons.configuration.XMLConfiguration;
 import org.apache.logging.log4j.LogManager;
@@ -74,7 +82,7 @@ public class InertialApplication extends Application {
 	}
 	
 	@Override
-	public void start(Stage stage) {
+	public void start(Stage stage) throws InterruptedException {
 		logger.info("Setting up graphical interface");
 		
 		// the loader, root, and scene are initialized in the following
@@ -83,7 +91,7 @@ public class InertialApplication extends Application {
 		FXMLLoader loader = new FXMLLoader();
 		Parent root = configureSceneParent(loader);
 		Scene scene = new Scene(root);
-		InertialWorld world = new InertialWorld();
+		final InertialWorld world = InertialWorld.getWorld();
 		InertialSupervisor supervisor = loader.getController();
 		
 		// set default scene properties
@@ -98,6 +106,23 @@ public class InertialApplication extends Application {
 		
 		// setup drag-and-drop
 		supervisor.setDragAndDropSettings();
+		supervisor.inertialPane.setStyle("-fx-background-color: WHITESMOKE;\n"
+				+ "-fx-border-color: LIGHTGRAY;\n"
+				+ "-fx-border-width: 2;\n");
+	
+		//Animations set up
+		final double updateInterval = 0.01;
+		Timeline animator = new Timeline(new KeyFrame(Duration.seconds(updateInterval), new EventHandler<ActionEvent>() {
+
+		    @Override
+		    public void handle(ActionEvent event) {
+    			ArrayList<InertialBridge> objectList = InertialWorld.getObjects();
+    			InertialPhysicsService.advance(objectList, 10*updateInterval);
+		    }
+		}));
+		animator.setCycleCount(Timeline.INDEFINITE);
+		animator.play();
+		
 	}
 	
 	public static void main(String[] args) {

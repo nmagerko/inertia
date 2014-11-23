@@ -1,6 +1,7 @@
 package edu.imsa.students.inertia.shapes;
 
 
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
 import javax.vecmath.Point2d;
@@ -15,6 +16,7 @@ public class InertialCircle extends Circle implements InertialBridge  {
 
 	private InertialAttributes attributes;
 	private Point2d lastIneractionPoint;
+
 	
 	private void initializeMoveInteractivity(){
 		InertialDragSetupService.setUpObjectOnMousePressed(this);
@@ -40,6 +42,13 @@ public class InertialCircle extends Circle implements InertialBridge  {
 		this.initializeMoveInteractivity();
 	}
 	
+	public InertialCircle(Point2d position, Double radius, Paint paint){
+		super(position.x, position.y, radius);
+		this.setFill(paint);
+		this.attributes = new InertialAttributes();
+		this.initializeMoveInteractivity();
+	}
+	
 	public InertialCircle(Point2d position, Double radius, InertialAttributes attributes) {
 		super(position.x, position.y, radius);
 		
@@ -59,14 +68,15 @@ public class InertialCircle extends Circle implements InertialBridge  {
 	
 	@Override
 	public void setPosition(Point2d position) {
-		this.setCenterX(position.x);
-		this.setCenterY(position.y);
+		this.setLayoutX(position.x);
+		this.setLayoutY(position.y);
 	}
 
 	@Override
 	public Point2d getPosition() {
-		return new Point2d(this.getCenterX(), this.getCenterY());
+		return new Point2d(this.getLayoutX(), this.getLayoutY());
 	}
+	
 
 	@Override
 	public void setLastInteractionPoint(Point2d updatedInteractionPoint) {
@@ -82,6 +92,7 @@ public class InertialCircle extends Circle implements InertialBridge  {
 	@Override
 	public InertialCircle getRawClone(){
 		// the clone is returned without its parent's InertialAttributes
-		return new InertialCircle(new Point2d(this.getCenterX(), this.getCenterY()), this.getRadius());
+		return new InertialCircle(new Point2d(this.getCenterX(), this.getCenterY()), this.getRadius(), this.getFill());
 	}
+	
 }

@@ -5,6 +5,7 @@ import javax.vecmath.Point2d;
 import edu.imsa.students.inertia.services.transfer.InertialCopyService;
 import edu.imsa.students.inertia.shapes.bridge.InertialBridge;
 import javafx.event.EventHandler;
+import javafx.scene.image.Image;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DataFormat;
 import javafx.scene.input.DragEvent;
@@ -20,8 +21,9 @@ public class InertialDragSetupService {
 	
 	private static <T extends Shape & InertialBridge> void handleMousePressedEvent(T inertialShape, MouseEvent event){
 		Point2d currentPosition = inertialShape.getPosition();
-		inertialShape.setLastInteractionPoint(new Point2d(event.getX() - currentPosition.x, 
-														  event.getY() - currentPosition.y));
+		//point of mouse press in reference of shape pressed
+		inertialShape.setLastInteractionPoint(new Point2d(event.getSceneX() - currentPosition.x, 
+														  event.getSceneY() - currentPosition.y));
 	}
 	
 	private static <T extends Shape & InertialBridge> void handleCopyDragEvent(T inertialShape, MouseEvent event){
@@ -30,8 +32,16 @@ public class InertialDragSetupService {
 		
 		// add the shape object's attributes as well as
 		// the mouse position on the shape to the dragboard
-		content.put(MOUSE_DATA_FORMAT, inertialShape.getLastInteractionPoint());
+		Point2d lastInteractionPoint = inertialShape.getLastInteractionPoint();
+		content.put(MOUSE_DATA_FORMAT, lastInteractionPoint);
 		dragBoard.setContent(content);
+		
+		//Add an opaque snapshot to be shown as the user copies the objects
+		Image snapshot = inertialShape.snapshot(null, null);
+		dragBoard.setDragView(snapshot);
+		dragBoard.setDragViewOffsetX(lastInteractionPoint.x);
+		dragBoard.setDragViewOffsetY(lastInteractionPoint.y);
+		
 		event.consume();
 	}
 	
@@ -95,11 +105,12 @@ public class InertialDragSetupService {
 		environmentalPane.setOnDragOver(new EventHandler<DragEvent>() {
 			@SuppressWarnings("unchecked")
 			public void handle(DragEvent event) {
+				
 				Dragboard dragBoard = event.getDragboard();
 				Point2d mousePosition = (Point2d) dragBoard.getContent(MOUSE_DATA_FORMAT);
 				T gestureSource = (T) event.getGestureSource();
-				double x = event.getX() - mousePosition.x;
-				double y = event.getY() - mousePosition.y;
+				double x = event.getSceneX() - mousePosition.x;
+				double y = event.getSceneY() - mousePosition.y;
 				Point2d newPosition = new Point2d(x, y);
 				
 				gestureSource.setPosition(newPosition);

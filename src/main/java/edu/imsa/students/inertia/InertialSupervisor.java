@@ -3,13 +3,13 @@ package edu.imsa.students.inertia;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Circle;
 import edu.imsa.students.inertia.services.interactivity.InertialDragSetupService;
+import edu.imsa.students.inertia.shapes.InertialCircle;
 import edu.imsa.students.inertia.shapes.InertialRectangle;
+import edu.imsa.students.inertia.shapes.InertialTriangle;
+import edu.imsa.students.inertia.shapes.InertialPentagon;
 import edu.imsa.students.inertia.world.InertialWorld;
 
 public class InertialSupervisor {
@@ -17,13 +17,13 @@ public class InertialSupervisor {
 	private InertialWorld supervisedWorld;
 
 	@FXML
-	Circle circle;
+	InertialCircle circle;
+	@FXML
+	InertialTriangle triangle;
 	@FXML
 	InertialRectangle square;
 	@FXML
-	ToggleButton play;
-	@FXML
-	ImageView image;
+	InertialPentagon pentagon;
 	@FXML
 	Pane inertialPane;
 	@FXML
@@ -45,15 +45,6 @@ public class InertialSupervisor {
 	@FXML
 	private void tryPlaceSquare() {
 
-	}
-
-	@FXML
-	private void playPauseSimulation() {
-		if (play.getText().toLowerCase().equals("run")) {
-			play.setText("RUNNING");
-		} else {
-			play.setText("RUN");
-		}
 	}
 
 	@FXML
