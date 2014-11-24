@@ -25,6 +25,7 @@ public class InertialSupervisor {
 	@FXML
 	InertialPentagon pentagon;
 	@FXML
+	private
 	Pane inertialPane;
 	@FXML
 	AnchorPane upperDetailsPane;
@@ -108,7 +109,15 @@ public class InertialSupervisor {
 	 * Set up drag and drop between the objects.
 	 */
 	public void setDragAndDropSettings() {
-		InertialDragSetupService.setUpEnvironmentDrag(inertialPane);
+		InertialDragSetupService.setUpEnvironmentDrag(getInertialPane());
+	}
+	
+	public Pane getInertialPane() {
+		return inertialPane;
+	}
+
+	public void setInertialPane(Pane inertialPane) {
+		this.inertialPane = inertialPane;
 	}
 
 }

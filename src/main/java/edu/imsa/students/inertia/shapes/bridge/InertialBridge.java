@@ -2,6 +2,7 @@ package edu.imsa.students.inertia.shapes.bridge;
 
 import java.io.Serializable;
 
+import javafx.geometry.Bounds;
 import javafx.scene.shape.Shape;
 
 import javax.vecmath.Point2d;
@@ -34,4 +35,7 @@ public interface InertialBridge extends Serializable {
 	
 	// a way to clone the object
 	public <T extends Shape & InertialBridge> T getRawClone();
+	
+	// getter for the bounds of the object. used for intersection detection.
+	public Bounds getBounds();
 }

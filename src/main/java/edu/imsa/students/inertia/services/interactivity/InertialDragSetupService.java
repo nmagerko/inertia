@@ -1,6 +1,7 @@
 package edu.imsa.students.inertia.services.interactivity;
 
 import javax.vecmath.Point2d;
+import javax.vecmath.Vector2d;
 
 import edu.imsa.students.inertia.services.transfer.InertialCopyService;
 import edu.imsa.students.inertia.shapes.bridge.InertialBridge;
@@ -99,6 +100,15 @@ public class InertialDragSetupService {
 				handleMoveDragEvent(inertialShape, event);
 			}
 		});
+		inertialShape.setOnDragDone(new EventHandler<DragEvent>() {
+
+			@Override
+			public void handle(DragEvent event) {
+				@SuppressWarnings("unchecked")
+				T gestureSource = (T) event.getGestureSource();
+				gestureSource.getInertialAttributes().setInDrag(false);
+			}
+		});
 	}
 	
 	public static <T extends Shape & InertialBridge> void setUpEnvironmentDrag(final Pane environmentalPane){
@@ -113,7 +123,16 @@ public class InertialDragSetupService {
 				double y = event.getSceneY() - mousePosition.y;
 				Point2d newPosition = new Point2d(x, y);
 				
+				//makes it known that this object is being dragged
+				gestureSource.getInertialAttributes().setInDrag(true);
+				
+				//change velocity and position while moving
+				Vector2d difference = new Vector2d(gestureSource.getPosition().x, gestureSource.getPosition().y);
+				difference.sub(newPosition);
+				difference.scale(3);
+				
 				gestureSource.setPosition(newPosition);
+				gestureSource.getInertialAttributes().setVelocity(difference);
 				
 				if (event.getDragboard().hasContent(MOUSE_DATA_FORMAT) && event.getTransferMode() == TransferMode.COPY) {
 					event.acceptTransferModes(TransferMode.COPY);
