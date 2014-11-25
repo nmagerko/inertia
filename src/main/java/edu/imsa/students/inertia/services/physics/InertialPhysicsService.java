@@ -20,53 +20,74 @@ public class InertialPhysicsService {
 
 			InertialAttributes attributes = i.getInertialAttributes();
 			if (!attributes.isInDrag()) {
-				// changes position
-				Point2d position = i.getPosition();
-				Vector2d velocity = attributes.getVelocity();
-				Vector2d velocityStep = new Vector2d(velocity.x, velocity.y);
-				velocityStep.scale(timeStep);
-				position.sub(velocityStep);
-				i.setPosition(position);
 
-				// changes velocity
-				Vector2d acceleration = attributes.getAcceleration();
-				Vector2d accelerationStep = new Vector2d(acceleration.x,
-						acceleration.y);
-				accelerationStep.scale(timeStep);
-				velocity.add(accelerationStep);
+				Vector2d velocity = attributes.getVelocity();
+				Point2d position = i.getPosition();
 
 				// changes acceleration
 				attributes.applyForces(timeStep);
 
-				// check collisions
+				// changes velocity
+				// also check collisions
 				Pane parentPane = supervisor.getInertialPane();
 
 				Bounds container = parentPane.getLayoutBounds();
 				Bounds object = i.getBounds();
 
-				double leftX = container.getMinX();
-				double rightX = container.getMaxX();
-				double topY = container.getMinY();
-				double bottomY = container.getMaxY();
-				double objectLeftX = object.getMinX();
-				double objectRightX = object.getMaxX();
-				double objectTopY = object.getMinY();
-				double objectBottomY = object.getMaxY();
+				boolean outOfBounds = false;
+				// test reflection in x direction
+				if (isOutOfXBounds(object, container)) {
+					velocity.set(-velocity.x, velocity.y);
+					outOfBounds = true;
+				}
+				// test reflection in y direction
+				if (isOutOfYBounds(object, container)) {
+					velocity.set(velocity.x, -velocity.y);
+					outOfBounds = true;
+				}
+				
+				if (!outOfBounds) {
+					Vector2d acceleration = attributes.getAcceleration();
+					Vector2d accelerationStep = new Vector2d(acceleration.x,
+							acceleration.y);
+					accelerationStep.scale(timeStep);
+					velocity.add(accelerationStep);
+				}
 
-				if (objectLeftX < leftX) {
-					velocity.set(-velocity.x, velocity.y);
-				}
-				if (objectRightX > rightX) {
-					velocity.set(-velocity.x, velocity.y);
-				}
-				if (objectTopY < topY) {
-					velocity.set(velocity.x, -velocity.y);
-				}
-				if (objectBottomY > bottomY) {
-					velocity.set(velocity.x, -velocity.y);
-				}
+				// changes position
+				Vector2d velocityStep = new Vector2d(velocity.x, velocity.y);
+				velocityStep.scale(timeStep);
+				position.sub(velocityStep);
+				i.setPosition(position);
 			}
 		}
+	}
+
+	public static boolean isOutOfXBounds(Bounds object, Bounds container) {
+		double leftX = container.getMinX();
+		double rightX = container.getMaxX();
+		double objectLeftX = object.getMinX();
+		double objectRightX = object.getMaxX();
+		if (objectLeftX < leftX) {
+			return true;
+		} else if (objectRightX > rightX) {
+			return true;
+		}
+		return false;
+	}
+
+	public static boolean isOutOfYBounds(Bounds object, Bounds container) {
+		double topY = container.getMinY();
+		double bottomY = container.getMaxY();
+		double objectTopY = object.getMinY();
+		double objectBottomY = object.getMaxY();
+		if (objectTopY < topY) {
+			return true;
+		}
+		if (objectBottomY > bottomY) {
+			return true;
+		}
+		return false;
 	}
 
 }

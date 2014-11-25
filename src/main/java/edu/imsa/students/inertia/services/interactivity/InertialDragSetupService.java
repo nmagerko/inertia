@@ -6,6 +6,8 @@ import javax.vecmath.Vector2d;
 import edu.imsa.students.inertia.services.transfer.InertialCopyService;
 import edu.imsa.students.inertia.shapes.bridge.InertialBridge;
 import javafx.event.EventHandler;
+import javafx.scene.effect.Bloom;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DataFormat;
@@ -14,6 +16,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 
 public class InertialDragSetupService {
@@ -82,6 +85,12 @@ public class InertialDragSetupService {
 		inertialShape.setOnMousePressed(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent event) {
 				handleMousePressedEvent(inertialShape, event);
+				inertialShape.getInertialAttributes().setInDrag(true);
+			}
+		});
+		inertialShape.setOnMouseReleased(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				inertialShape.getInertialAttributes().setInDrag(false);
 			}
 		});
 	}
@@ -104,9 +113,8 @@ public class InertialDragSetupService {
 
 			@Override
 			public void handle(DragEvent event) {
-				@SuppressWarnings("unchecked")
-				T gestureSource = (T) event.getGestureSource();
-				gestureSource.getInertialAttributes().setInDrag(false);
+				inertialShape.getInertialAttributes().setInDrag(false);
+				//inertialShape.setEffect(null);
 			}
 		});
 	}
@@ -123,8 +131,14 @@ public class InertialDragSetupService {
 				double y = event.getSceneY() - mousePosition.y;
 				Point2d newPosition = new Point2d(x, y);
 				
-				//makes it known that this object is being dragged
-				gestureSource.getInertialAttributes().setInDrag(true);
+				/**
+				//optional glow effect during drag
+				DropShadow glow = new DropShadow();
+				glow.setColor(Color.AQUAMARINE);
+				glow.setRadius(50);
+				glow.setSpread(0.6);
+				gestureSource.setEffect(glow);
+				*/
 				
 				//change velocity and position while moving
 				Vector2d difference = new Vector2d(gestureSource.getPosition().x, gestureSource.getPosition().y);
