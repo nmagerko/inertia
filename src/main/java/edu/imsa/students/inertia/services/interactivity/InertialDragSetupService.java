@@ -86,6 +86,7 @@ public class InertialDragSetupService {
 			public void handle(MouseEvent event) {
 				handleMousePressedEvent(inertialShape, event);
 				inertialShape.getInertialAttributes().setInDrag(true);
+				inertialShape.getInertialAttributes().setVelocity(new Vector2d(0,0));
 			}
 		});
 		inertialShape.setOnMouseReleased(new EventHandler<MouseEvent>() {
