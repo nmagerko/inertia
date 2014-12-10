@@ -24,6 +24,7 @@ public class InertialAttributes {
 	private Double mass;
 	private Vector2d acceleration;
 	private Vector2d velocity;
+	private boolean inDrag = false;
 	private ArrayList<InertialForce> forces=new ArrayList<>();
 	
 	public InertialAttributes(){
@@ -75,6 +76,14 @@ public class InertialAttributes {
 			Vector2d forceStep = new Vector2d(force.computedAcceleration(mass).x, force.computedAcceleration(mass).y);
 			acceleration.set(forceStep);
 		}
+	}
+
+	public boolean isInDrag() {
+		return inDrag;
+	}
+
+	public void setInDrag(boolean inDrag) {
+		this.inDrag = inDrag;
 	}
 	
 }
