@@ -111,13 +111,13 @@ public class InertialApplication extends Application {
 				+ "-fx-border-width: 2;\n");
 	
 		//Animations set up
-		final double updateInterval = 0.01;
+		final double updateInterval = 0.001;
 		Timeline animator = new Timeline(new KeyFrame(Duration.seconds(updateInterval), new EventHandler<ActionEvent>() {
 
 		    @Override
 		    public void handle(ActionEvent event) {
     			ArrayList<InertialBridge> objectList = InertialWorld.getObjects();
-    			InertialPhysicsService.advance(objectList, 10*updateInterval, supervisor);
+    			InertialPhysicsService.advance(objectList, 12*updateInterval, supervisor);
 		    }
 		}));
 		animator.setCycleCount(Timeline.INDEFINITE);
