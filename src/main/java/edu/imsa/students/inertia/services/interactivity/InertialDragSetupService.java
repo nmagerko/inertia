@@ -132,14 +132,6 @@ public class InertialDragSetupService {
 				double y = event.getSceneY() - mousePosition.y;
 				Point2d newPosition = new Point2d(x, y);
 				
-				/**
-				//optional glow effect during drag
-				DropShadow glow = new DropShadow();
-				glow.setColor(Color.AQUAMARINE);
-				glow.setRadius(50);
-				glow.setSpread(0.6);
-				gestureSource.setEffect(glow);
-				*/
 				
 				//change velocity and position while moving
 				Vector2d difference = new Vector2d(gestureSource.getPosition().x, gestureSource.getPosition().y);
