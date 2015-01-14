@@ -37,6 +37,14 @@ public class InertialSupervisor {
 	MenuItem deleteMenuItem;
 	@FXML
 	MenuItem closeMenuItem;
+	@FXML
+	Slider massSlider;
+	@FXML
+	Slider gravitySlider;
+	@FXML
+	Slider airSlider;
+	@FXML
+	Slider restitutionSlider;
 
 	@FXML
 	private void tryPlaceCircle() {
