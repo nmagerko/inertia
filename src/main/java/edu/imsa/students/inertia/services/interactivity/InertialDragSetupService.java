@@ -1,10 +1,13 @@
 package edu.imsa.students.inertia.services.interactivity;
 
 import javax.vecmath.Point2d;
+import javax.vecmath.Vector2d;
 
 import edu.imsa.students.inertia.services.transfer.InertialCopyService;
 import edu.imsa.students.inertia.shapes.bridge.InertialBridge;
 import javafx.event.EventHandler;
+import javafx.scene.effect.Bloom;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DataFormat;
@@ -13,6 +16,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 
 public class InertialDragSetupService {
@@ -81,6 +85,13 @@ public class InertialDragSetupService {
 		inertialShape.setOnMousePressed(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent event) {
 				handleMousePressedEvent(inertialShape, event);
+				inertialShape.getInertialAttributes().setInDrag(true);
+				inertialShape.getInertialAttributes().setVelocity(new Vector2d(0,0));
+			}
+		});
+		inertialShape.setOnMouseReleased(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				inertialShape.getInertialAttributes().setInDrag(false);
 			}
 		});
 	}
@@ -99,6 +110,14 @@ public class InertialDragSetupService {
 				handleMoveDragEvent(inertialShape, event);
 			}
 		});
+		inertialShape.setOnDragDone(new EventHandler<DragEvent>() {
+
+			@Override
+			public void handle(DragEvent event) {
+				inertialShape.getInertialAttributes().setInDrag(false);
+				//inertialShape.setEffect(null);
+			}
+		});
 	}
 	
 	public static <T extends Shape & InertialBridge> void setUpEnvironmentDrag(final Pane environmentalPane){
@@ -113,7 +132,14 @@ public class InertialDragSetupService {
 				double y = event.getSceneY() - mousePosition.y;
 				Point2d newPosition = new Point2d(x, y);
 				
+				
+				//change velocity and position while moving
+				Vector2d difference = new Vector2d(gestureSource.getPosition().x, gestureSource.getPosition().y);
+				difference.sub(newPosition);
+				difference.scale(5);
+				
 				gestureSource.setPosition(newPosition);
+				gestureSource.getInertialAttributes().setVelocity(difference);
 				
 				if (event.getDragboard().hasContent(MOUSE_DATA_FORMAT) && event.getTransferMode() == TransferMode.COPY) {
 					event.acceptTransferModes(TransferMode.COPY);

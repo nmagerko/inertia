@@ -1,6 +1,7 @@
 package edu.imsa.students.inertia.shapes;
 
 
+import javafx.geometry.Bounds;
 import javafx.scene.paint.Paint;
 
 import javax.vecmath.Point2d;
@@ -90,5 +91,10 @@ public class InertialPentagon extends RegularPentagon implements InertialBridge 
 	public InertialPentagon getRawClone(){
 		// the clone is returned without its parent's InertialAttributes
 		return new InertialPentagon(new Point2d(this.getX(), this.getY()), DEFAULT_SCALE, this.getFill());
+	}
+
+	@Override
+	public Bounds getBounds() {
+		return getBoundsInParent();
 	}
 }

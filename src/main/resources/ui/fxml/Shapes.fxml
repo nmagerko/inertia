@@ -1,0 +1,23 @@
+		<VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="574.0" prefWidth="203.0" stylesheets="@../css/caspian.css" BorderPane.alignment="CENTER">
+         <children>
+            <InertialCircle fx:id="circle" fill="STEELBLUE" radius="50.0" stroke="WHITE" strokeType="INSIDE">
+               <VBox.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </VBox.margin>
+            </InertialCircle>
+            <InertialRectangle fx:id="square" arcHeight="5.0" arcWidth="5.0" fill="STEELBLUE" height="100.0" stroke="WHITE" strokeType="INSIDE" width="100.0">
+               <VBox.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </VBox.margin>
+            </InertialRectangle>
+            <InertialTriangle fx:id="triangle" fill="STEELBLUE" scale="1.0" stroke="WHITE" strokeType="INSIDE">
+               <VBox.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </VBox.margin>
+            </InertialTriangle>
+            <InertialPentagon fx:id="pentagon" fill="STEELBLUE" scale="1.0" stroke="GRAY" strokeType="INSIDE">
+               <VBox.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </VBox.margin>
+            </InertialPentagon>
+         </children></VBox>
