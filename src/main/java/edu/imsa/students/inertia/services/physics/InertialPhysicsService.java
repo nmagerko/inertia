@@ -14,6 +14,13 @@ import edu.imsa.students.inertia.shapes.bridge.InertialBridge;
 
 public class InertialPhysicsService {
 
+	/**
+	 * Steps forward in time, moving all objects
+	 * 
+	 * @param objectList
+	 * @param timeStep
+	 * @param supervisor
+	 */
 	public static void advance(List<? extends InertialBridge> objectList,
 			double timeStep, InertialSupervisor supervisor) {
 		for (InertialBridge i : objectList) {
@@ -63,6 +70,13 @@ public class InertialPhysicsService {
 		}
 	}
 
+	/**
+	 * Checks whether an object is within x bounds of its container.
+	 * 
+	 * @param object
+	 * @param container
+	 * @return true if out of bounds, false if in bounds.
+	 */
 	public static boolean isOutOfXBounds(Bounds object, Bounds container) {
 		double leftX = container.getMinX();
 		double rightX = container.getMaxX();
@@ -76,6 +90,13 @@ public class InertialPhysicsService {
 		return false;
 	}
 
+	/**
+	 * Checks whether an object is within y bounds of its container.
+	 * 
+	 * @param object
+	 * @param container
+	 * @return true if out of bounds, false if in bounds.
+	 */
 	public static boolean isOutOfYBounds(Bounds object, Bounds container) {
 		double topY = container.getMinY();
 		double bottomY = container.getMaxY();

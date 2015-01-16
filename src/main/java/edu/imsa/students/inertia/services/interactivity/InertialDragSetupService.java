@@ -3,6 +3,7 @@ package edu.imsa.students.inertia.services.interactivity;
 import javax.vecmath.Point2d;
 import javax.vecmath.Vector2d;
 
+import edu.imsa.students.inertia.InertialSupervisor;
 import edu.imsa.students.inertia.services.transfer.InertialCopyService;
 import edu.imsa.students.inertia.shapes.bridge.InertialBridge;
 import javafx.event.EventHandler;
@@ -23,13 +24,31 @@ public class InertialDragSetupService {
 	
 	public static final DataFormat MOUSE_DATA_FORMAT = new DataFormat("javax.vecmath.Point2d");
 	
+	/**
+	 * Handles a mouse press on InertialObjects
+	 * 
+	 * @param inertialShape - the object being clicked
+	 * @param event -  the MouseEvent of the click
+	 */
 	private static <T extends Shape & InertialBridge> void handleMousePressedEvent(T inertialShape, MouseEvent event){
 		Point2d currentPosition = inertialShape.getPosition();
+		
 		//point of mouse press in reference of shape pressed
 		inertialShape.setLastInteractionPoint(new Point2d(event.getSceneX() - currentPosition.x, 
 														  event.getSceneY() - currentPosition.y));
+		
+		inertialShape.getInertialAttributes().setInDrag(true);
+		inertialShape.getInertialAttributes().setVelocity(new Vector2d(0,0));
+		//sets inertialShape as the selected object
+		InertialSupervisor.setSelectedObject(inertialShape);
 	}
 	
+	/**
+	 * Handles the start of a copy event on an Inertial object.
+	 * 
+	 * @param inertialShape - the shape being copied
+	 * @param event - the MouseEvent of the drag
+	 */
 	private static <T extends Shape & InertialBridge> void handleCopyDragEvent(T inertialShape, MouseEvent event){
 		Dragboard dragBoard = inertialShape.startDragAndDrop(TransferMode.COPY);
 		ClipboardContent content = new ClipboardContent();
@@ -49,6 +68,12 @@ public class InertialDragSetupService {
 		event.consume();
 	}
 	
+	/**
+	 * Handles the beginning of a move-drag action.
+	 * 
+	 * @param inertialShape - the shape being dragged
+	 * @param event - the MouseEvent of the drag
+	 */
 	private static <T extends Shape & InertialBridge> void handleMoveDragEvent(T inertialShape, MouseEvent event){
 		Dragboard dragBoard = inertialShape.startDragAndDrop(TransferMode.MOVE);
 		ClipboardContent content = new ClipboardContent();
@@ -60,6 +85,11 @@ public class InertialDragSetupService {
 		event.consume();
 	}
 	
+	/**
+	 * Sets up the InertialPane for copying of objects
+	 * 
+	 * @param environmentalPane - the Pane which will contain the objects
+	 */
 	private static <T extends Shape & InertialBridge> void handleCopyEvent(final Pane environmentalPane) {
 		environmentalPane.setOnDragDropped(new EventHandler<DragEvent>() {
 			@SuppressWarnings("unchecked")
@@ -81,12 +111,15 @@ public class InertialDragSetupService {
 		});
 	}
 	
+	/**
+	 * Stops objects on click and sets them in "drag-mode."
+	 * 
+	 * @param inertialShape
+	 */
 	public static <T extends Shape & InertialBridge> void setUpObjectOnMousePressed(final T inertialShape){
 		inertialShape.setOnMousePressed(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent event) {
 				handleMousePressedEvent(inertialShape, event);
-				inertialShape.getInertialAttributes().setInDrag(true);
-				inertialShape.getInertialAttributes().setVelocity(new Vector2d(0,0));
 			}
 		});
 		inertialShape.setOnMouseReleased(new EventHandler<MouseEvent>() {
@@ -96,6 +129,10 @@ public class InertialDragSetupService {
 		});
 	}
 	
+	/**
+	 * Sets up objects for copying
+	 * @param inertialShape
+	 */
 	public static <T extends Shape & InertialBridge> void setUpObjectCopyDrag(final T inertialShape){
 		inertialShape.setOnDragDetected(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent event) {
@@ -104,6 +141,10 @@ public class InertialDragSetupService {
 		});
 	}
 	
+	/**
+	 * Sets up objects for moving
+	 * @param inertialShape
+	 */
 	public static <T extends Shape & InertialBridge> void setUpObjectMoveDrag(final T inertialShape){
 		inertialShape.setOnDragDetected(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent event) {
@@ -115,11 +156,15 @@ public class InertialDragSetupService {
 			@Override
 			public void handle(DragEvent event) {
 				inertialShape.getInertialAttributes().setInDrag(false);
-				//inertialShape.setEffect(null);
 			}
 		});
 	}
 	
+	/**
+	 * Allow objects to be dragged across pane, changing position and velocity of the objects while they're dragged.
+	 * 
+	 * @param environmentalPane
+	 */
 	public static <T extends Shape & InertialBridge> void setUpEnvironmentDrag(final Pane environmentalPane){
 		environmentalPane.setOnDragOver(new EventHandler<DragEvent>() {
 			@SuppressWarnings("unchecked")

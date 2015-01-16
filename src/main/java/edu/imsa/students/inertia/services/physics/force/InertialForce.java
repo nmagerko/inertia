@@ -8,6 +8,9 @@ public class InertialForce extends Vector2d {
 	
 	private static final long serialVersionUID = 2085296602259075032L;
 
+	/**
+	 * Returns the computed acceleration for a force object based on an objects mass
+	 */
 	public Vector2d computedAcceleration(Double mass) {
 		Vector2d acceleration = new Vector2d(this.x,this.y);
 		//     F/m=a

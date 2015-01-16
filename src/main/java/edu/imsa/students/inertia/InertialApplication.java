@@ -106,9 +106,7 @@ public class InertialApplication extends Application {
 		
 		// setup drag-and-drop
 		supervisor.setDragAndDropSettings();
-		supervisor.getInertialPane().setStyle("-fx-background-color: WHITESMOKE;\n"
-				+ "-fx-border-color: LIGHTGRAY;\n"
-				+ "-fx-border-width: 2;\n");
+		supervisor.setUpControls();
 	
 		//Animations set up
 		final double updateInterval = 0.01;
