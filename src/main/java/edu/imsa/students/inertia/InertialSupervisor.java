@@ -100,7 +100,7 @@ public class InertialSupervisor {
 	/**
 	 * @return the selectedObject
 	 */
-	public InertialBridge getSelectedObject() {
+	public static InertialBridge getSelectedObject() {
 		return selectedObject;
 	}
 
@@ -111,7 +111,19 @@ public class InertialSupervisor {
 	public static void setSelectedObject(InertialBridge selectedObject) {
 		InertialSupervisor.selectedObject = selectedObject;
 	}
-
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public static boolean hasSelectedObject(){
+		if(selectedObject != null)
+		{
+			return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * Set up the control window in the InertialApplication
 	 */
@@ -129,7 +141,7 @@ public class InertialSupervisor {
 					Number arg1, Number arg2) {
 				massLabel.setText(Double.toString(massSlider.getValue()));
 				InertialAttributes iA = selectedObject.getInertialAttributes();
-				iA.setMass(iA.getMass()*massSlider.getValue()/100);
+				iA.setMass(massSlider.getValue());
 				selectedObject.setInertialAttributes(iA);
 			}
 		});

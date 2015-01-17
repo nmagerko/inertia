@@ -39,6 +39,10 @@ public class InertialDragSetupService {
 		
 		inertialShape.getInertialAttributes().setInDrag(true);
 		inertialShape.getInertialAttributes().setVelocity(new Vector2d(0,0));
+		//removes attributes of last selected object
+		if(InertialSupervisor.hasSelectedObject()){
+			
+		}
 		//sets inertialShape as the selected object
 		InertialSupervisor.setSelectedObject(inertialShape);
 	}
