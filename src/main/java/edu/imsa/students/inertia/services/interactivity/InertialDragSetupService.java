@@ -18,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Shape;
 
 public class InertialDragSetupService {
@@ -41,10 +42,13 @@ public class InertialDragSetupService {
 		inertialShape.getInertialAttributes().setVelocity(new Vector2d(0,0));
 		//removes attributes of last selected object
 		if(InertialSupervisor.hasSelectedObject()){
-			
+			InertialBridge selected = InertialSupervisor.getSelectedObject();
+			Shape selectedShape = selected.getShape();
+			selectedShape.setStroke(null);
 		}
 		//sets inertialShape as the selected object
 		InertialSupervisor.setSelectedObject(inertialShape);
+		inertialShape.setStroke(Color.GOLD);
 	}
 	
 	/**
@@ -86,6 +90,16 @@ public class InertialDragSetupService {
 		// the mouse position on the shape to the dragboard
 		content.put(MOUSE_DATA_FORMAT, inertialShape.getLastInteractionPoint());
 		dragBoard.setContent(content);
+		
+		//removes attributes of last selected object
+				if(InertialSupervisor.hasSelectedObject()){
+					InertialBridge selected = InertialSupervisor.getSelectedObject();
+					Shape selectedShape = selected.getShape();
+					selectedShape.setStroke(null);
+				}
+				//sets inertialShape as the selected object
+		InertialSupervisor.setSelectedObject(inertialShape);
+				inertialShape.setStroke(Color.GOLD);
 		event.consume();
 	}
 	

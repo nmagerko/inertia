@@ -38,4 +38,7 @@ public interface InertialBridge extends Serializable {
 	
 	// getter for the bounds of the object. used for intersection detection.
 	public Bounds getBounds();
+	
+	//getter for the Shape component of each Bridge
+	public Shape getShape();
 }

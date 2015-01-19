@@ -2,6 +2,7 @@ package edu.imsa.students.inertia.shapes;
 
 import javafx.geometry.Bounds;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Shape;
 
 import javax.vecmath.Point2d;
 
@@ -96,5 +97,9 @@ public class InertialTriangle extends RegularTriangle implements InertialBridge 
 	public Bounds getBounds() {
 		return getBoundsInParent();
 	}
-	
+
+	@Override
+	public Shape getShape() {
+		return this;
+	}
 }
