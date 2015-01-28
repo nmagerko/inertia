@@ -92,7 +92,7 @@ public class InertialApplication extends Application {
 		Parent root = configureSceneParent(loader);
 		Scene scene = new Scene(root);
 		final InertialWorld world = InertialWorld.getWorld();
-		final InertialSupervisor supervisor = loader.getController();
+		InertialSupervisor supervisor = loader.getController();
 		
 		// set default scene properties
 		this.configureDefaultStageProperties(stage);
@@ -106,18 +106,18 @@ public class InertialApplication extends Application {
 		
 		// setup drag-and-drop
 		supervisor.setDragAndDropSettings();
-		supervisor.getInertialPane().setStyle("-fx-background-color: WHITESMOKE;\n"
+		supervisor.inertialPane.setStyle("-fx-background-color: WHITESMOKE;\n"
 				+ "-fx-border-color: LIGHTGRAY;\n"
 				+ "-fx-border-width: 2;\n");
 	
 		//Animations set up
-		final double updateInterval = 0.001;
+		final double updateInterval = 0.01;
 		Timeline animator = new Timeline(new KeyFrame(Duration.seconds(updateInterval), new EventHandler<ActionEvent>() {
 
 		    @Override
 		    public void handle(ActionEvent event) {
     			ArrayList<InertialBridge> objectList = InertialWorld.getObjects();
-    			InertialPhysicsService.advance(objectList, 12*updateInterval, supervisor);
+    			InertialPhysicsService.advance(objectList, 10*updateInterval);
 		    }
 		}));
 		animator.setCycleCount(Timeline.INDEFINITE);
