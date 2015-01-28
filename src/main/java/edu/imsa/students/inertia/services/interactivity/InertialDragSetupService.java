@@ -45,10 +45,13 @@ public class InertialDragSetupService {
 			InertialBridge selected = InertialSupervisor.getSelectedObject();
 			Shape selectedShape = selected.getShape();
 			selectedShape.setStroke(null);
+			selectedShape.setFill(Color.STEELBLUE);
+
 		}
 		//sets inertialShape as the selected object
 		InertialSupervisor.setSelectedObject(inertialShape);
 		inertialShape.setStroke(Color.GOLD);
+		inertialShape.setFill(Color.AQUA);
 	}
 	
 	/**
