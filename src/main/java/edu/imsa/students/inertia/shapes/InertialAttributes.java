@@ -2,10 +2,8 @@ package edu.imsa.students.inertia.shapes;
 
 import java.util.ArrayList;
 
-import javax.vecmath.Tuple2d;
 import javax.vecmath.Vector2d;
 
-import edu.imsa.students.inertia.services.physics.force.AirResistanceForce;
 import edu.imsa.students.inertia.services.physics.force.GravityForce;
 import edu.imsa.students.inertia.services.physics.force.InertialForce;
 
@@ -21,14 +19,11 @@ public class InertialAttributes {
 	private final Double DEFAULT_MASS = new Double(1.0);
 	private final Vector2d DEFAULT_VELOCITY = new Vector2d(0, 0);
 	private final Vector2d DEFAULT_ACCELERATION = new Vector2d(0, 0);
-	private final Double DEFAULT_AIR_RESISTANCE_CONSTANT = new Double(0.3);
 	private final GravityForce gravity = new GravityForce();
-	private final AirResistanceForce airResistance = new AirResistanceForce();
 
 	private Double mass;
 	private Vector2d acceleration;
 	private Vector2d velocity;
-	private boolean inDrag = false;
 	private ArrayList<InertialForce> forces=new ArrayList<>();
 	
 	public InertialAttributes(){
@@ -36,7 +31,6 @@ public class InertialAttributes {
 		this.velocity = DEFAULT_VELOCITY;
 		this.acceleration = DEFAULT_ACCELERATION;
 		forces.add(gravity);
-		forces.add(airResistance);
 	}
 
 	public InertialAttributes(Double mass, Vector2d acceleration, Vector2d velocity) {
@@ -44,7 +38,6 @@ public class InertialAttributes {
 		this.velocity = velocity;
 		this.acceleration = acceleration;
 		forces.add(gravity);
-		forces.add(airResistance);
 	}
 
 	public Double getMass() {
@@ -77,20 +70,11 @@ public class InertialAttributes {
 
 	public void applyForces(double timeStep)
 	{
-		acceleration.set(0.0, 0.0);
 		for(InertialForce force: forces)
 		{
-			Vector2d forceStep = new Vector2d(((Tuple2d) force.computedAcceleration(this).clone()));
-			acceleration.add(forceStep);
+			Vector2d forceStep = new Vector2d(force.computedAcceleration(mass).x, force.computedAcceleration(mass).y);
+			acceleration.set(forceStep);
 		}
-	}
-
-	public boolean isInDrag() {
-		return inDrag;
-	}
-
-	public void setInDrag(boolean inDrag) {
-		this.inDrag = inDrag;
 	}
 	
 }

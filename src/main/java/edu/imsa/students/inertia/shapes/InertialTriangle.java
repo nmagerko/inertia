@@ -1,6 +1,5 @@
 package edu.imsa.students.inertia.shapes;
 
-import javafx.geometry.Bounds;
 import javafx.scene.paint.Paint;
 
 import javax.vecmath.Point2d;
@@ -90,11 +89,6 @@ public class InertialTriangle extends RegularTriangle implements InertialBridge 
 	public InertialTriangle getRawClone(){
 		// the clone is returned without its parent's InertialAttributes
 		return new InertialTriangle(new Point2d(this.getX(), this.getY()), DEFAULT_SCALE, this.getFill());
-	}
-
-	@Override
-	public Bounds getBounds() {
-		return getBoundsInParent();
 	}
 	
 }

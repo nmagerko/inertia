@@ -1,7 +1,6 @@
 package edu.imsa.students.inertia.shapes;
 
 
-import javafx.geometry.Bounds;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
@@ -94,10 +93,5 @@ public class InertialRectangle extends Rectangle implements InertialBridge {
 	public InertialRectangle getRawClone(){
 		// the clone is returned without its parent's InertialAttributes
 		return new InertialRectangle(new Point2d(this.getX(), this.getY()), this.getWidth(), this.getHeight(), this.getFill());
-	}
-
-	@Override
-	public Bounds getBounds() {
-		return getBoundsInParent();
 	}
 }

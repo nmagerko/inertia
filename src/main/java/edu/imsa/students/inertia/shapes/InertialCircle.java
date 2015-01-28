@@ -1,7 +1,6 @@
 package edu.imsa.students.inertia.shapes;
 
 
-import javafx.geometry.Bounds;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
@@ -94,11 +93,6 @@ public class InertialCircle extends Circle implements InertialBridge  {
 	public InertialCircle getRawClone(){
 		// the clone is returned without its parent's InertialAttributes
 		return new InertialCircle(new Point2d(this.getCenterX(), this.getCenterY()), this.getRadius(), this.getFill());
-	}
-	
-	@Override
-	public Bounds getBounds() {
-		return getBoundsInParent();
 	}
 	
 }

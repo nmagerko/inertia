@@ -25,7 +25,6 @@ public class InertialSupervisor {
 	@FXML
 	InertialPentagon pentagon;
 	@FXML
-	private
 	Pane inertialPane;
 	@FXML
 	AnchorPane upperDetailsPane;
@@ -37,14 +36,6 @@ public class InertialSupervisor {
 	MenuItem deleteMenuItem;
 	@FXML
 	MenuItem closeMenuItem;
-	@FXML
-	Slider massSlider;
-	@FXML
-	Slider gravitySlider;
-	@FXML
-	Slider airSlider;
-	@FXML
-	Slider restitutionSlider;
 
 	@FXML
 	private void tryPlaceCircle() {
@@ -117,15 +108,7 @@ public class InertialSupervisor {
 	 * Set up drag and drop between the objects.
 	 */
 	public void setDragAndDropSettings() {
-		InertialDragSetupService.setUpEnvironmentDrag(getInertialPane());
-	}
-	
-	public Pane getInertialPane() {
-		return inertialPane;
-	}
-
-	public void setInertialPane(Pane inertialPane) {
-		this.inertialPane = inertialPane;
+		InertialDragSetupService.setUpEnvironmentDrag(inertialPane);
 	}
 
 }
