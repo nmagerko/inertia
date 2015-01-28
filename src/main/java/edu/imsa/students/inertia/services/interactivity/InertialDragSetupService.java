@@ -136,7 +136,7 @@ public class InertialDragSetupService {
 				//change velocity and position while moving
 				Vector2d difference = new Vector2d(gestureSource.getPosition().x, gestureSource.getPosition().y);
 				difference.sub(newPosition);
-				difference.scale(3);
+				difference.scale(5);
 				
 				gestureSource.setPosition(newPosition);
 				gestureSource.getInertialAttributes().setVelocity(difference);
