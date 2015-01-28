@@ -4,6 +4,7 @@ package edu.imsa.students.inertia.shapes;
 import javafx.geometry.Bounds;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Shape;
 
 import javax.vecmath.Point2d;
 
@@ -20,12 +21,12 @@ public class InertialCircle extends Circle implements InertialBridge  {
 
 	
 	private void initializeMoveInteractivity(){
-		InertialDragSetupService.setUpObjectOnMousePressed(this);
+		InertialDragSetupService.setUpMoveObjectOnMousePressed(this);
 		InertialDragSetupService.setUpObjectMoveDrag(this);
 	}
 	
 	private void initializeCopyInteractivity(){
-		InertialDragSetupService.setUpObjectOnMousePressed(this);
+		InertialDragSetupService.setUpCopyObjectOnMousePressed(this);
 		InertialDragSetupService.setUpObjectCopyDrag(this);
 	}
 	
@@ -99,6 +100,11 @@ public class InertialCircle extends Circle implements InertialBridge  {
 	@Override
 	public Bounds getBounds() {
 		return getBoundsInParent();
+	}
+
+	@Override
+	public Shape getShape() {
+		return this;
 	}
 	
 }

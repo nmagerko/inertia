@@ -31,6 +31,11 @@ public class InertialAttributes {
 	private boolean inDrag = false;
 	private ArrayList<InertialForce> forces=new ArrayList<>();
 	
+	private Double gravityScalar=new Double(1.0);
+	private Double massScalar = new Double(1.0);
+	private Double airScalar = new Double(1.0);
+	private Double restitutionScalar = new Double(1.0);
+	
 	public InertialAttributes(){
 		this.mass = DEFAULT_MASS;
 		this.velocity = DEFAULT_VELOCITY;
@@ -91,6 +96,62 @@ public class InertialAttributes {
 
 	public void setInDrag(boolean inDrag) {
 		this.inDrag = inDrag;
+	}
+	
+	/**
+	 * @return the gravityScalar
+	 */
+	public Double getGravityScalar() {
+		return gravityScalar;
+	}
+
+	/**
+	 * @param gravityScalar the gravityScalar to set
+	 */
+	public void setGravityScalar(Double gravityScalar) {
+		this.gravityScalar = gravityScalar;
+	}
+
+	/**
+	 * @return the massScalar
+	 */
+	public Double getMassScalar() {
+		return massScalar;
+	}
+
+	/**
+	 * @param massScalar the massScalar to set
+	 */
+	public void setMassScalar(Double massScalar) {
+		this.massScalar = massScalar;
+	}
+
+	/**
+	 * @return the airScalar
+	 */
+	public Double getAirScalar() {
+		return airScalar;
+	}
+
+	/**
+	 * @param airScalar the airScalar to set
+	 */
+	public void setAirScalar(Double airScalar) {
+		this.airScalar = airScalar;
+	}
+
+	/**
+	 * @return the restitutionScalar
+	 */
+	public Double getRestitutionScalar() {
+		return restitutionScalar;
+	}
+
+	/**
+	 * @param restitutionScalar the restitutionScalar to set
+	 */
+	public void setRestitutionScalar(Double restitutionScalar) {
+		this.restitutionScalar = restitutionScalar;
 	}
 	
 }

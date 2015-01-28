@@ -3,6 +3,7 @@ package edu.imsa.students.inertia.shapes;
 
 import javafx.geometry.Bounds;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Shape;
 
 import javax.vecmath.Point2d;
 
@@ -18,12 +19,12 @@ public class InertialPentagon extends RegularPentagon implements InertialBridge 
 	private InertialAttributes attributes;
 	private Point2d lastInteractionPoint;
 	private void initializeMoveInteractivity(){
-		InertialDragSetupService.setUpObjectOnMousePressed(this);
+		InertialDragSetupService.setUpMoveObjectOnMousePressed(this);
 		InertialDragSetupService.setUpObjectMoveDrag(this);
 	}
 	
 	private void initializeCopyInteractivity(){
-		InertialDragSetupService.setUpObjectOnMousePressed(this);
+		InertialDragSetupService.setUpCopyObjectOnMousePressed(this);
 		InertialDragSetupService.setUpObjectCopyDrag(this);
 	}
 	
@@ -96,5 +97,10 @@ public class InertialPentagon extends RegularPentagon implements InertialBridge 
 	@Override
 	public Bounds getBounds() {
 		return getBoundsInParent();
+	}
+
+	@Override
+	public Shape getShape() {
+		return this;
 	}
 }
