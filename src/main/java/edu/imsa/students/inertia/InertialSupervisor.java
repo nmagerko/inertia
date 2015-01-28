@@ -154,7 +154,7 @@ public class InertialSupervisor {
 				Double airScalar = airSlider.getValue();
 				airLabel.setText(Double.toString(airScalar));
 				InertialAttributes iA = selectedObject.getInertialAttributes();
-				iA.setMassScalar(airScalar);
+				iA.setAirScalar(airScalar);
 				selectedObject.setInertialAttributes(iA);
 			}
 		});
@@ -165,7 +165,7 @@ public class InertialSupervisor {
 				Double gravityScalar = gravitySlider.getValue();
 				gravityLabel.setText(Double.toString(gravityScalar));
 				InertialAttributes iA = selectedObject.getInertialAttributes();
-				iA.setMassScalar(gravityScalar);
+				iA.setGravityScalar(gravityScalar);
 				selectedObject.setInertialAttributes(iA);
 			}
 		});
@@ -177,7 +177,7 @@ public class InertialSupervisor {
 						Double restitutionScalar = restitutionSlider.getValue();
 						restitutionLabel.setText(Double.toString(restitutionScalar));
 						InertialAttributes iA = selectedObject.getInertialAttributes();
-						iA.setMassScalar(restitutionScalar);
+						iA.setRestitutionScalar(restitutionScalar);
 						selectedObject.setInertialAttributes(iA);
 					}
 				});
