@@ -139,9 +139,10 @@ public class InertialSupervisor {
 			@Override
 			public void changed(ObservableValue<? extends Number> arg0,
 					Number arg1, Number arg2) {
-				massLabel.setText(Double.toString(massSlider.getValue()));
+				Double massScalar = massSlider.getValue();
+				massLabel.setText(Double.toString(massScalar));
 				InertialAttributes iA = selectedObject.getInertialAttributes();
-				iA.setMass(massSlider.getValue());
+				iA.setMassScalar(massScalar);
 				selectedObject.setInertialAttributes(iA);
 			}
 		});
@@ -150,14 +151,22 @@ public class InertialSupervisor {
 			@Override
 			public void changed(ObservableValue<? extends Number> arg0,
 					Number arg1, Number arg2) {
-				airLabel.setText(Double.toString(airSlider.getValue()));
+				Double airScalar = airSlider.getValue();
+				airLabel.setText(Double.toString(airScalar));
+				InertialAttributes iA = selectedObject.getInertialAttributes();
+				iA.setMassScalar(airScalar);
+				selectedObject.setInertialAttributes(iA);
 			}
 		});
 		gravitySlider.valueProperty().addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> arg0,
 					Number arg1, Number arg2) {
-				gravityLabel.setText(Double.toString(gravitySlider.getValue()));
+				Double gravityScalar = gravitySlider.getValue();
+				gravityLabel.setText(Double.toString(gravityScalar));
+				InertialAttributes iA = selectedObject.getInertialAttributes();
+				iA.setMassScalar(gravityScalar);
+				selectedObject.setInertialAttributes(iA);
 			}
 		});
 		restitutionSlider.valueProperty().addListener(
@@ -165,8 +174,11 @@ public class InertialSupervisor {
 					@Override
 					public void changed(ObservableValue<? extends Number> arg0,
 							Number arg1, Number arg2) {
-						restitutionLabel.setText(Double
-								.toString(restitutionSlider.getValue()));
+						Double restitutionScalar = restitutionSlider.getValue();
+						restitutionLabel.setText(Double.toString(restitutionScalar));
+						InertialAttributes iA = selectedObject.getInertialAttributes();
+						iA.setMassScalar(restitutionScalar);
+						selectedObject.setInertialAttributes(iA);
 					}
 				});
 	}

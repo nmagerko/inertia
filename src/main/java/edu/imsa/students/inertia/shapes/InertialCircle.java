@@ -21,12 +21,12 @@ public class InertialCircle extends Circle implements InertialBridge  {
 
 	
 	private void initializeMoveInteractivity(){
-		InertialDragSetupService.setUpObjectOnMousePressed(this);
+		InertialDragSetupService.setUpMoveObjectOnMousePressed(this);
 		InertialDragSetupService.setUpObjectMoveDrag(this);
 	}
 	
 	private void initializeCopyInteractivity(){
-		InertialDragSetupService.setUpObjectOnMousePressed(this);
+		InertialDragSetupService.setUpCopyObjectOnMousePressed(this);
 		InertialDragSetupService.setUpObjectCopyDrag(this);
 	}
 	

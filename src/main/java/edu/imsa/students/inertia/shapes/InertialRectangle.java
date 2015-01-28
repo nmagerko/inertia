@@ -21,12 +21,12 @@ public class InertialRectangle extends Rectangle implements InertialBridge {
 	private Point2d lastInteractionPoint;
 	
 	private void initializeMoveInteractivity(){
-		InertialDragSetupService.setUpObjectOnMousePressed(this);
+		InertialDragSetupService.setUpMoveObjectOnMousePressed(this);
 		InertialDragSetupService.setUpObjectMoveDrag(this);
 	}
 	
 	private void initializeCopyInteractivity(){
-		InertialDragSetupService.setUpObjectOnMousePressed(this);
+		InertialDragSetupService.setUpCopyObjectOnMousePressed(this);
 		InertialDragSetupService.setUpObjectCopyDrag(this);
 	}
 	
