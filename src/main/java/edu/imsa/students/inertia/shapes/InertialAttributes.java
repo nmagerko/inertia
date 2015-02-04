@@ -31,10 +31,10 @@ public class InertialAttributes {
 	private boolean inDrag = false;
 	private ArrayList<InertialForce> forces=new ArrayList<>();
 	
-	private Double gravityScalar=100.0;
-	private Double massScalar = new Double(1.0);
-	private Double airScalar = new Double(1.0);
-	private Double restitutionScalar = new Double(1.0);
+	private Double gravityScalar= new Double (100.0);
+	private Double massScalar = new Double(100.0);
+	private Double airScalar = new Double(100.0);
+	private Double restitutionScalar = new Double(100.0);
 	
 	public InertialAttributes(){
 		this.mass = DEFAULT_MASS;

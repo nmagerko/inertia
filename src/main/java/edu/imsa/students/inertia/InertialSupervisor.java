@@ -129,10 +129,10 @@ public class InertialSupervisor {
 	 */
 	public void setUpControls() {
 		//set labels to initial values of the sliders
-		massLabel.setText(Double.toString(massSlider.getValue()));
-		airLabel.setText(Double.toString(airSlider.getValue()));
-		gravityLabel.setText(Double.toString(gravitySlider.getValue()));
-		restitutionLabel.setText(Double.toString(restitutionSlider.getValue()));
+		massLabel.setText(Double.toString(massSlider.getValue())+ "kg");
+		airLabel.setText(Double.toString(airSlider.getValue())+ "%");
+		gravityLabel.setText(Double.toString(gravitySlider.getValue())+ "%");
+		restitutionLabel.setText(Double.toString(restitutionSlider.getValue())+ "%");
 
 		//Add listeners to all of the sliders for each of the labels
 		massSlider.valueProperty().addListener(new ChangeListener<Number>() {
@@ -140,9 +140,9 @@ public class InertialSupervisor {
 			public void changed(ObservableValue<? extends Number> arg0,
 					Number arg1, Number arg2) {
 				Double massScalar = massSlider.getValue();
-				massLabel.setText(Double.toString(massScalar));
+				massLabel.setText((Math.round(massScalar))+ "kg");
 				InertialAttributes iA = selectedObject.getInertialAttributes();
-				iA.setMassScalar(massScalar);
+				iA.setMass(massScalar);
 				selectedObject.setInertialAttributes(iA);
 			}
 		});
@@ -152,7 +152,7 @@ public class InertialSupervisor {
 			public void changed(ObservableValue<? extends Number> arg0,
 					Number arg1, Number arg2) {
 				Double airScalar = airSlider.getValue();
-				airLabel.setText(Double.toString(airScalar));
+				airLabel.setText((Math.round(airScalar))+ "%");
 				InertialAttributes iA = selectedObject.getInertialAttributes();
 				iA.setAirScalar(airScalar);
 				selectedObject.setInertialAttributes(iA);
@@ -163,7 +163,7 @@ public class InertialSupervisor {
 			public void changed(ObservableValue<? extends Number> arg0,
 					Number arg1, Number arg2) {
 				Double gravityScalar = gravitySlider.getValue();
-				gravityLabel.setText(Double.toString(gravityScalar));
+				gravityLabel.setText((Math.round(gravityScalar))+ "%");
 				InertialAttributes iA = selectedObject.getInertialAttributes();
 				iA.setGravityScalar(gravityScalar);
 				selectedObject.setInertialAttributes(iA);
@@ -175,7 +175,7 @@ public class InertialSupervisor {
 					public void changed(ObservableValue<? extends Number> arg0,
 							Number arg1, Number arg2) {
 						Double restitutionScalar = restitutionSlider.getValue();
-						restitutionLabel.setText(Double.toString(restitutionScalar));
+						restitutionLabel.setText((Math.round(restitutionScalar))+ "%");
 						InertialAttributes iA = selectedObject.getInertialAttributes();
 						iA.setRestitutionScalar(restitutionScalar);
 						selectedObject.setInertialAttributes(iA);

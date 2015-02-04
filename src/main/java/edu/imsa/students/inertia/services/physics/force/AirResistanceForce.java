@@ -12,8 +12,9 @@ public class AirResistanceForce extends InertialForce {
 	
 	@Override
 	public Vector2d computedAcceleration(InertialAttributes attributes) {
+		Double airScalar =attributes.getAirScalar()/100;
 		Vector2d resistance = new Vector2d((Tuple2d) attributes.getVelocity().clone());
-		resistance.scale(-1*RESISTANCE_CONSTANT);
+		resistance.scale(-1*RESISTANCE_CONSTANT*airScalar);
 		return resistance;
 	}
 }
