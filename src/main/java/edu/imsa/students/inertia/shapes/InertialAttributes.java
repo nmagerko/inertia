@@ -2,9 +2,13 @@ package edu.imsa.students.inertia.shapes;
 
 import java.util.ArrayList;
 
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+
 import javax.vecmath.Tuple2d;
 import javax.vecmath.Vector2d;
 
+import edu.imsa.students.inertia.InertialApplication;
 import edu.imsa.students.inertia.services.physics.force.AirResistanceForce;
 import edu.imsa.students.inertia.services.physics.force.GravityForce;
 import edu.imsa.students.inertia.services.physics.force.InertialForce;
@@ -36,12 +40,25 @@ public class InertialAttributes {
 	private Double airScalar = new Double(100.0);
 	private Double restitutionScalar = new Double(100.0);
 	
+	private LineChart<Number, Number> previousPositions;
+	
+	private void setUpLineChart() {
+		// TODO: could these be final? 
+		NumberAxis xAxis = new NumberAxis(0, 15,5);
+        NumberAxis yAxis = new NumberAxis();
+		this.previousPositions = new LineChart<Number, Number>(xAxis, yAxis);
+		this.previousPositions.setCreateSymbols(false);
+		this.previousPositions.setAnimated(false);
+	}
+	
 	public InertialAttributes(){
 		this.mass = DEFAULT_MASS;
 		this.velocity = DEFAULT_VELOCITY;
 		this.acceleration = DEFAULT_ACCELERATION;
 		forces.add(gravity);
 		forces.add(airResistance);
+		
+		setUpLineChart();
 	}
 
 	public InertialAttributes(Double mass, Vector2d acceleration, Vector2d velocity) {
@@ -50,6 +67,8 @@ public class InertialAttributes {
 		this.acceleration = acceleration;
 		forces.add(gravity);
 		forces.add(airResistance);
+		
+		setUpLineChart();
 	}
 
 	public Double getMass() {
@@ -152,6 +171,10 @@ public class InertialAttributes {
 	 */
 	public void setRestitutionScalar(Double restitutionScalar) {
 		this.restitutionScalar = restitutionScalar;
+	}
+	
+	public LineChart<Number, Number> getPositionChart() {
+		return this.previousPositions;
 	}
 	
 }

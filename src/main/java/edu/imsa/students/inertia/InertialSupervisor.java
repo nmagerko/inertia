@@ -2,15 +2,16 @@ package edu.imsa.students.inertia;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import edu.imsa.students.inertia.services.interactivity.InertialDragSetupService;
 import edu.imsa.students.inertia.shapes.InertialAttributes;
 import edu.imsa.students.inertia.shapes.InertialCircle;
@@ -23,8 +24,7 @@ import edu.imsa.students.inertia.world.InertialWorld;
 public class InertialSupervisor {
 
 	private InertialWorld supervisedWorld;
-
-	private static InertialBridge selectedObject;
+	private InertialBridge selectedObject;
 
 	@FXML
 	InertialCircle circle;
@@ -62,6 +62,8 @@ public class InertialSupervisor {
 	Label gravityLabel;
 	@FXML
 	Label restitutionLabel;
+	@FXML
+	VBox chartContainerContent;
 
 	public InertialWorld getSupervisedWorld() {
 		return this.supervisedWorld;
@@ -100,7 +102,7 @@ public class InertialSupervisor {
 	/**
 	 * @return the selectedObject
 	 */
-	public static InertialBridge getSelectedObject() {
+	public InertialBridge getSelectedObject() {
 		return selectedObject;
 	}
 
@@ -108,20 +110,21 @@ public class InertialSupervisor {
 	 * @param selectedObject
 	 *            the selectedObject to set
 	 */
-	public static void setSelectedObject(InertialBridge selectedObject) {
-		InertialSupervisor.selectedObject = selectedObject;
+	public void setSelectedObject(InertialBridge selectedObject) {
+		this.selectedObject = selectedObject;
+		
+		this.chartContainerContent.getChildren().clear();
+		this.chartContainerContent.getChildren()
+								  .add(selectedObject.getInertialAttributes()
+							   						 .getPositionChart());
 	}
 	
 	/**
 	 * 
 	 * @return
 	 */
-	public static boolean hasSelectedObject(){
-		if(selectedObject != null)
-		{
-			return true;
-		}
-		return false;
+	public boolean hasSelectedObject(){
+		return selectedObject != null;
 	}
 	
 	/**
@@ -182,5 +185,4 @@ public class InertialSupervisor {
 					}
 				});
 	}
-
 }

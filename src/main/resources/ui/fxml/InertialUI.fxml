@@ -99,16 +99,8 @@
             </ScrollPane>
             <ScrollPane prefHeight="400.0" prefWidth="272.0" style="-fx-border-width: 0;">
                <content>
-                  <LineChart prefHeight="298.0" prefWidth="265.0" title="Position vs Time">
-                     <xAxis>
-                        <NumberAxis side="BOTTOM" />
-                     </xAxis>
-                     <yAxis>
-                        <NumberAxis side="LEFT" />
-                     </yAxis>
-                  </LineChart>
-               </content>
-            </ScrollPane>
+                  <VBox fx:id="chartContainerContent" alignment="CENTER" minWidth="0.0" maxWidth="268.0" prefHeight="300.0" />
+               </content></ScrollPane>
          </children>
          <opaqueInsets>
             <Insets />

@@ -3,6 +3,7 @@ package edu.imsa.students.inertia.services.interactivity;
 import javax.vecmath.Point2d;
 import javax.vecmath.Vector2d;
 
+import edu.imsa.students.inertia.InertialApplication;
 import edu.imsa.students.inertia.InertialSupervisor;
 import edu.imsa.students.inertia.services.transfer.InertialCopyService;
 import edu.imsa.students.inertia.shapes.bridge.InertialBridge;
@@ -46,16 +47,16 @@ public class InertialDragSetupService {
 		inertialShape.getInertialAttributes().setVelocity(new Vector2d(0, 0));
 		// removes attributes of last selected object
 		if (canSelect) {
-			if (InertialSupervisor.hasSelectedObject()) {
-				InertialBridge selected = InertialSupervisor
-						.getSelectedObject();
+			InertialSupervisor supervisor = InertialApplication.getMainController();
+			if (supervisor.hasSelectedObject()) {
+				InertialBridge selected = supervisor.getSelectedObject();
 				Shape selectedShape = selected.getShape();
 				selectedShape.setStroke(null);
 				selectedShape.setFill(Color.STEELBLUE);
 
 			}
 			// sets inertialShape as the selected object
-			InertialSupervisor.setSelectedObject(inertialShape);
+			supervisor.setSelectedObject(inertialShape);
 			inertialShape.setFill(Color.AQUAMARINE);
 		}
 	}

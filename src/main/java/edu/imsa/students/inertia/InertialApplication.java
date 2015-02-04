@@ -2,11 +2,13 @@ package edu.imsa.students.inertia;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import edu.imsa.students.inertia.services.configuration.InertialConfigurationService;
 import edu.imsa.students.inertia.services.physics.InertialPhysicsService;
 import edu.imsa.students.inertia.shapes.bridge.InertialBridge;
 import edu.imsa.students.inertia.world.InertialWorld;
+import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -33,6 +35,7 @@ public class InertialApplication extends Application {
 	
 	private XMLConfiguration configuration;
 	
+	private static InertialSupervisor supervisor;
 	private static Logger logger = LogManager.getLogger(InertialApplication.class);
 	
 	/**
@@ -81,6 +84,10 @@ public class InertialApplication extends Application {
 		this.configuration = InertialConfigurationService.getConfiguration("application");
 	}
 	
+	public static InertialSupervisor getMainController() {
+		return supervisor;
+	}
+	
 	@Override
 	public void start(Stage stage) throws InterruptedException {
 		logger.info("Setting up graphical interface");
@@ -91,8 +98,7 @@ public class InertialApplication extends Application {
 		FXMLLoader loader = new FXMLLoader();
 		Parent root = configureSceneParent(loader);
 		Scene scene = new Scene(root);
-		final InertialWorld world = InertialWorld.getWorld();
-		final InertialSupervisor supervisor = loader.getController();
+		supervisor = loader.getController();
 		
 		// set default scene properties
 		this.configureDefaultStageProperties(stage);
@@ -100,6 +106,7 @@ public class InertialApplication extends Application {
 		stage.setScene(scene);
 		
 		// provide the supervisor with a world to manipulate
+		final InertialWorld world = InertialWorld.getWorld();
 		this.configureDefaultWorldProprties(world);
 		supervisor.setSupervisedWorld(world);
 		stage.show();
@@ -108,18 +115,24 @@ public class InertialApplication extends Application {
 		supervisor.setDragAndDropSettings();
 		supervisor.setUpControls();
 	
-		//Animations set up
-		final double updateInterval = 0.001;
-		Timeline animator = new Timeline(new KeyFrame(Duration.seconds(updateInterval), new EventHandler<ActionEvent>() {
+		new AnimationTimer() {
+			
+			private final double UPDATE_AFTER_SECONDS = 0.08;
+			//Note: NANOSECONDS_PER_SECONDS only works when changed by a factor of 10. Should be 10e9
+			private final double NANOSECONDS_PER_SECOND = 10e8;
+			private long lastUpdate = 0;
+			private int MAX_SECONDS_PER_GRAPH = 15;
 
 		    @Override
-		    public void handle(ActionEvent event) {
+		    public void handle(long now) {
     			ArrayList<InertialBridge> objectList = InertialWorld.getObjects();
-    			InertialPhysicsService.advance(objectList, 12*updateInterval, supervisor);
+    			InertialPhysicsService.advance(objectList);  
+    			if((double)(now - lastUpdate)/NANOSECONDS_PER_SECOND > UPDATE_AFTER_SECONDS) {
+    				InertialPhysicsService.updateCharts(objectList, (double) (now-lastUpdate)/NANOSECONDS_PER_SECOND, MAX_SECONDS_PER_GRAPH);
+    				lastUpdate = now;
+    			}
 		    }
-		}));
-		animator.setCycleCount(Timeline.INDEFINITE);
-		animator.play();
+		}.start();
 		
 	}
 	
