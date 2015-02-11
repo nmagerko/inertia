@@ -11,6 +11,7 @@ public class GravityForce extends InertialForce{
 	
 	@Override
 	public Vector2d computedAcceleration(InertialAttributes attributes){
-		return new Vector2d(0,-9.81);
+		Double gravityScalar = attributes.getGravityScalar()/100.0;
+		return new Vector2d(0,-9.81*gravityScalar);
 	}
 }

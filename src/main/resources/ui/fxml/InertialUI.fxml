@@ -74,7 +74,7 @@
                               <Cursor fx:constant="CLOSED_HAND" />
                            </cursor></Slider>
                         <Label layoutX="16.0" layoutY="189.0" prefHeight="67.0" prefWidth="62.0" text="Coefficient of Restitution" textAlignment="CENTER" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                        <Slider fx:id="restitutionSlider" blockIncrement="0.2" layoutX="105.0" layoutY="193.0" max="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="59.0" prefWidth="147.0" snapToTicks="true" value="0.5" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                        <Slider fx:id="restitutionSlider" blockIncrement="25.0" layoutX="105.0" layoutY="193.0" max="300.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="59.0" prefWidth="147.0" snapToTicks="true" value="100.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                            <cursor>
                               <Cursor fx:constant="CLOSED_HAND" />
                            </cursor></Slider>
@@ -85,8 +85,8 @@
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="121.33331298828125" minWidth="10.0" prefWidth="66.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="191.0" minWidth="10.0" prefWidth="156.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="191.0" minWidth="10.0" prefWidth="35.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="191.0" minWidth="10.0" prefWidth="145.3333740234375" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="191.0" minWidth="10.0" prefWidth="45.6666259765625" />
                      </columnConstraints>
                      <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -99,16 +99,8 @@
             </ScrollPane>
             <ScrollPane prefHeight="400.0" prefWidth="272.0" style="-fx-border-width: 0;">
                <content>
-                  <LineChart prefHeight="298.0" prefWidth="265.0" title="Position vs Time">
-                     <xAxis>
-                        <NumberAxis side="BOTTOM" />
-                     </xAxis>
-                     <yAxis>
-                        <NumberAxis side="LEFT" />
-                     </yAxis>
-                  </LineChart>
-               </content>
-            </ScrollPane>
+                  <VBox fx:id="chartContainerContent" alignment="CENTER" minWidth="0.0" maxWidth="268.0" prefHeight="300.0" />
+               </content></ScrollPane>
          </children>
          <opaqueInsets>
             <Insets />
