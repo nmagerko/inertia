@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 import edu.imsa.students.inertia.services.configuration.InertialConfigurationService;
 import edu.imsa.students.inertia.services.physics.InertialPhysicsService;
+import edu.imsa.students.inertia.services.physics.collision.CollisionDetectionService;
 import edu.imsa.students.inertia.shapes.bridge.InertialBridge;
 import edu.imsa.students.inertia.world.InertialWorld;
 import javafx.animation.AnimationTimer;
@@ -130,6 +131,7 @@ public class InertialApplication extends Application {
     			if((double)(now - lastUpdate)/NANOSECONDS_PER_SECOND > UPDATE_AFTER_SECONDS) {
     				InertialPhysicsService.updateCharts(objectList, (double) (now-lastUpdate)/NANOSECONDS_PER_SECOND, MAX_SECONDS_PER_GRAPH);
     				lastUpdate = now;
+    				System.out.println(CollisionDetectionService.findIntersectingObjects(objectList));
     			}
 		    }
 		}.start();

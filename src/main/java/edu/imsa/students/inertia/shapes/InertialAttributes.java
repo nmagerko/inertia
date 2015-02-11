@@ -8,7 +8,6 @@ import javafx.scene.chart.NumberAxis;
 import javax.vecmath.Tuple2d;
 import javax.vecmath.Vector2d;
 
-import edu.imsa.students.inertia.InertialApplication;
 import edu.imsa.students.inertia.services.physics.force.AirResistanceForce;
 import edu.imsa.students.inertia.services.physics.force.GravityForce;
 import edu.imsa.students.inertia.services.physics.force.InertialForce;
