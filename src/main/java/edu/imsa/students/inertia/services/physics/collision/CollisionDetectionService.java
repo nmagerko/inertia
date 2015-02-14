@@ -7,6 +7,7 @@ import edu.imsa.students.inertia.shapes.bridge.InertialBridge;
 import javafx.util.Pair;
 
 public class CollisionDetectionService {
+	
 	public static List<Pair<InertialBridge, InertialBridge>> findIntersectingObjects(List<InertialBridge> objects){
 		List<Pair<InertialBridge, InertialBridge>> collidingObjects = new ArrayList<>();
 		int objectsExisting = objects.size();

@@ -10,12 +10,15 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.layout.Pane;
+import javafx.util.Pair;
 
 import javax.vecmath.Point2d;
 import javax.vecmath.Vector2d;
 
 import edu.imsa.students.inertia.InertialApplication;
 import edu.imsa.students.inertia.InertialSupervisor;
+import edu.imsa.students.inertia.services.physics.collision.CollisionDetectionService;
+import edu.imsa.students.inertia.services.physics.collision.CollisionEvaluationService;
 import edu.imsa.students.inertia.shapes.InertialAttributes;
 import edu.imsa.students.inertia.shapes.bridge.InertialBridge;
 
@@ -160,9 +163,13 @@ public class InertialPhysicsService {
 			        
 				}
 			}
-			
-			
-			//object.getInertialAttributes().updatePositionChart();
+		}
+	}
+	
+	public static void handleCollisions(ArrayList<InertialBridge> objectList) {
+		List<Pair<InertialBridge, InertialBridge>> colliders = CollisionDetectionService.findIntersectingObjects(objectList);
+		for(Pair<InertialBridge, InertialBridge> collidingPair : colliders) {
+			CollisionEvaluationService.evaluateCollidingPair(collidingPair);
 		}
 	}
 
