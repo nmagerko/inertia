@@ -36,6 +36,9 @@ public interface InertialBridge extends Serializable {
 	// a way to clone the object
 	public <T extends Shape & InertialBridge> T getRawClone();
 	
+	// a way to find the object's center
+	public Point2d getCenter();
+	
 	// getter for the bounds of the object. used for intersection detection.
 	public Bounds getBounds();
 	

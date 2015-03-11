@@ -106,4 +106,11 @@ public class InertialRectangle extends Rectangle implements InertialBridge {
 	public Shape getShape() {
 		return this;
 	}
+	
+	@Override
+	public Point2d getCenter() {
+		double centerX = this.getX() + this.getWidth()/2.0;
+		double centerY = this.getY() + this.getHeight()/2.0;
+		return new Point2d(this.getLayoutX() + centerX, this.getLayoutY() + centerY);
+	}
 }

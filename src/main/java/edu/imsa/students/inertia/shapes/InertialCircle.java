@@ -107,4 +107,9 @@ public class InertialCircle extends Circle implements InertialBridge  {
 		return this;
 	}
 	
+	@Override
+	public Point2d getCenter() {
+		return new Point2d(this.getLayoutX(), this.getLayoutY());
+	}
+	
 }

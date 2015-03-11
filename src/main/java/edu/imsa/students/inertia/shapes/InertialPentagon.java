@@ -103,4 +103,9 @@ public class InertialPentagon extends RegularPentagon implements InertialBridge 
 	public Shape getShape() {
 		return this;
 	}
+	
+	@Override
+	public Point2d getCenter() {
+		throw new java.lang.UnsupportedOperationException("Implementation required");
+	}
 }
