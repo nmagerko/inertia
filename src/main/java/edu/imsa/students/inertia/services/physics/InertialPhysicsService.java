@@ -24,7 +24,7 @@ import edu.imsa.students.inertia.shapes.bridge.InertialBridge;
 
 public class InertialPhysicsService {
 	
-	private static final double TIME_STEP = 0.25;
+	public static final double TIME_STEP = 0.25;
 	private static final String X_POSITION_IDENTIFIER = "X Position";
 	private static final String Y_POSITION_IDENTIFIER = "Y Position";
 

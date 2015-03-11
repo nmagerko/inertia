@@ -3,6 +3,7 @@ package edu.imsa.students.inertia.services.physics.collision;
 import javax.vecmath.Point2d;
 import javax.vecmath.Vector2d;
 
+import edu.imsa.students.inertia.services.physics.InertialPhysicsService;
 import edu.imsa.students.inertia.shapes.InertialAttributes;
 import edu.imsa.students.inertia.shapes.bridge.InertialBridge;
 import javafx.util.Pair;
@@ -67,5 +68,13 @@ public class CollisionEvaluationService {
 		impulseB.scale(1.0/massB);
 		velocityVectorA.sub(impulseA);
 		velocityVectorB.add(impulseB);
+		
+		Point2d position = colliderA.getPosition();
+		Vector2d velocity = colliderA.getInertialAttributes().getVelocity();
+		while (colliderA.getShape().getBoundsInParent().intersects(colliderB.getShape().getBoundsInParent())) {
+			position.x -= velocity.x * InertialPhysicsService.TIME_STEP;
+			position.y -= velocity.y * InertialPhysicsService.TIME_STEP;
+			colliderA.setPosition(position);
+		}
 	}
 }
