@@ -69,12 +69,16 @@ public class CollisionEvaluationService {
 		velocityVectorA.sub(impulseA);
 		velocityVectorB.add(impulseB);
 		
-		Point2d position = colliderA.getPosition();
-		Vector2d velocity = colliderA.getInertialAttributes().getVelocity();
+		Point2d positionA = colliderA.getPosition();
+		Point2d positionB = colliderB.getPosition();
 		while (colliderA.getShape().getBoundsInParent().intersects(colliderB.getShape().getBoundsInParent())) {
-			position.x -= velocity.x * InertialPhysicsService.TIME_STEP;
-			position.y -= velocity.y * InertialPhysicsService.TIME_STEP;
-			colliderA.setPosition(position);
+			positionA.x -= velocityVectorA.x * InertialPhysicsService.TIME_STEP;
+			positionA.y -= velocityVectorA.y * InertialPhysicsService.TIME_STEP;
+			positionB.x -= velocityVectorB.x * InertialPhysicsService.TIME_STEP;
+			positionB.y -= velocityVectorB.y * InertialPhysicsService.TIME_STEP;
+			
+			colliderA.setPosition(positionA);
+			colliderB.setPosition(positionB);
 		}
 	}
 }
