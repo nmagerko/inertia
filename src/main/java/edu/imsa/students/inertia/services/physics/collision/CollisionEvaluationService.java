@@ -18,28 +18,11 @@ public class CollisionEvaluationService {
 		InertialBridge colliderA = collidingPair.getKey();
 		InertialBridge colliderB = collidingPair.getValue();
 		
-		double distanceX = colliderA.getCenter().x - colliderB.getCenter().x;
-		double distanceY = colliderA.getCenter().y - colliderB.getCenter().y;
-		
-		Vector2d unitA = new Vector2d();
-		Vector2d unitB = new Vector2d();
-		if(colliderA.getCenter().x < colliderB.getCenter().x) {
-			unitA.x = distanceX;
-			unitB.x = -distanceX;
-		} else {
-			unitA.x = -distanceX;
-			unitB.x = distanceX;
-		}
-		if (colliderA.getCenter().y < colliderB.getCenter().y) {
-			unitA.y = distanceY;
-			unitB.y = -distanceY;
-		} else {
-			unitA.y = -distanceY;
-			unitB.y = distanceY;
-		}
-		
-		unitA.normalize();
-		unitB.normalize();
+		double distanceX = -(colliderA.getCenter().x - colliderB.getCenter().x);
+		double distanceY = -(colliderA.getCenter().y - colliderB.getCenter().y);
+	
+		Vector2d direction = new Vector2d(distanceX, distanceY);
+		direction.normalize();
 		
 		InertialAttributes attributesA = colliderA.getInertialAttributes();
 		InertialAttributes attributesB = colliderB.getInertialAttributes();
@@ -53,19 +36,17 @@ public class CollisionEvaluationService {
 		Vector2d differenceAB = new Vector2d(velocityVectorA);
 		differenceAB.sub(velocityVectorB);
 		
-		Vector2d dotA = new Vector2d(differenceAB);
-		Double coefficientA = dotA.dot(unitA)*coefficient;
+		Vector2d dotProduct = new Vector2d(differenceAB);
+		Double coefficientFinal = dotProduct.dot(direction)*coefficient;
 		
-		Vector2d dotB = new Vector2d(differenceAB);
-		Double coefficientB = dotB.dot(unitB)*coefficient;
-		
-		Vector2d impulseA = new Vector2d(unitA);
-		impulseA.scale(coefficientA);
-		Vector2d impulseB = new Vector2d(unitB);
-		impulseB.scale(coefficientB);
+		Vector2d impulseA = new Vector2d(direction);
+		impulseA.scale(coefficientFinal);
+		Vector2d impulseB = new Vector2d(direction);
+		impulseB.scale(coefficientFinal);
 
 		impulseA.scale(1.0/massA);
 		impulseB.scale(1.0/massB);
+		
 		velocityVectorA.sub(impulseA);
 		velocityVectorB.add(impulseB);
 		
