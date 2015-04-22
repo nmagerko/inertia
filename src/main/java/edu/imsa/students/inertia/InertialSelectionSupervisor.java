@@ -1,7 +1,5 @@
 package edu.imsa.students.inertia;
 
-import java.io.IOException;
-
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.collections.ObservableList;
@@ -12,16 +10,16 @@ import javafx.fxml.FXML;
 public class InertialSelectionSupervisor {
 
 	private enum SimulationChoice {
-		ORBITAL(InertialStaticSupervisor.class) {
-			@Override
-			public String toString() {
-				return "Orbital Motion";
-			}
-		},
 		INTERACTIVE(InertialDynamicSupervisor.class) {
 			@Override
 			public String toString() {
 				return "Interactive Mode";
+			}
+		},
+		ORBITAL(InertialStaticSupervisor.class) {
+			@Override
+			public String toString() {
+				return "Orbital Motion";
 			}
 		};
 
