@@ -50,7 +50,7 @@ public class InertialApplication extends Application {
 			} else if (parentClass == InertialStaticSupervisor.class){
 				parentLocation = InertialApplication.class.getResource("/ui/fxml/StaticUI.fxml");
 			} else if (parentClass == InertialDynamicSupervisor.class){
-				parentLocation = InertialApplication.class.getResource("/ui/fxml/IneractiveUI.fxml");
+				parentLocation = InertialApplication.class.getResource("/ui/fxml/InteractiveUI.fxml");
 			}
 		} catch (Exception e) {
 			logger.error("An error occurred while loading the interface properties", e);
