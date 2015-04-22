@@ -8,8 +8,6 @@
 	<ui>
 		<defaults>
 		    <title>Inertia</title>
-			<width>1450</width>
-			<height>815</height>
 		</defaults>
 	</ui>
 	<world>

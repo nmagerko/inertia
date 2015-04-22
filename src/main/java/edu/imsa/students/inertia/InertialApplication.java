@@ -1,5 +1,6 @@
 package edu.imsa.students.inertia;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -35,25 +36,27 @@ import org.apache.logging.log4j.Logger;
  */
 public class InertialApplication extends Application {
 	
-	private XMLConfiguration configuration;
-	
+	private static AnimationTimer timer;
+	private static Stage stage;
 	private static InertialSupervisor supervisor;
+	private static XMLConfiguration configuration;
 	private static Logger logger = LogManager.getLogger(InertialApplication.class);
 	
-	/**
-	 * Sets the default stage properties using the values
-	 * provided in the application configuration
-	 */
-	private void configureDefaultStageProperties(Stage stage){
-		stage.setWidth(configuration.getInt("ui.defaults.width"));
-		stage.setHeight(configuration.getInt("ui.defaults.height"));
-		stage.setTitle(configuration.getString("ui.defaults.title"));
-	}
-	
-	private void configureDefaultWorldProprties(InertialWorld world){
-		// TODO: complete World implementation then rewrite below
-		// world.setGravitationalAcceleration(configuration.getDouble("world.defaults.gravitational-acceleration", 0));
-		// world.setAirResistance(configuration.getDouble("world.defaults.air-resistance", 0));
+	private static URL fetchParentURL(Class<?> parentClass){
+		URL parentLocation = null;
+		try {
+			if(parentClass == InertialSelectionSupervisor.class){
+				parentLocation = InertialApplication.class.getResource("/ui/fxml/SelectionUI.fxml");
+			} else if (parentClass == InertialStaticSupervisor.class){
+				throw new UnsupportedOperationException("No static supervisor");
+			} else if (parentClass == InertialDynamicSupervisor.class){
+				parentLocation = InertialApplication.class.getResource("/ui/fxml/InertialUI.fxml");
+			}
+		} catch (Exception e) {
+			logger.error("An error occurred while loading the interface properties", e);
+		}
+			
+		return parentLocation;
 	}
 	
 	/**
@@ -63,21 +66,14 @@ public class InertialApplication extends Application {
 	 * null
 	 * @param loader	a Java FXML loader
 	 * @return	a Scene parent
+	 * @throws IOException 
 	 */
-	private Parent configureSceneParent(FXMLLoader loader){
-		Parent root = null;
-		try {
-			URL parentLocation = getClass().getResource("/ui/fxml/InertialUI.fxml");
-			loader.setLocation(parentLocation);
-			loader.setBuilderFactory(new JavaFXBuilderFactory());
+	private static Parent configureSceneParent(FXMLLoader loader, Class<?> parentClass) throws IOException{
+		URL parentLocation = fetchParentURL(parentClass);
+		loader.setLocation(parentLocation);
+		loader.setBuilderFactory(new JavaFXBuilderFactory());
 			
-			root = (Parent) loader.load(parentLocation.openStream());
-		}
-		catch (Exception e){
-			logger.error("An error occurred while loading the interface properties", e);
-		}
-		
-		return root;
+		return (Parent) loader.load(parentLocation.openStream());
 	}
 	
 	public InertialApplication(){
@@ -90,34 +86,44 @@ public class InertialApplication extends Application {
 		return supervisor;
 	}
 	
+	public static void switchMainController(Class<?> newController) throws IOException {
+		if (newController.getSuperclass() != InertialSupervisor.class) {
+			throw new IllegalArgumentException("The new controller must be a subclass of InertialSupervisor");
+		}
+		
+		FXMLLoader loader = new FXMLLoader();
+		Parent root = configureSceneParent(loader, newController);
+		Scene scene = new Scene(root);
+		
+		supervisor = loader.getController();
+		supervisor.setDragAndDropSettings();
+		// final InertialWorld world = InertialWorld.getWorld();
+		// supervisor.setSupervisedWorld(world);
+		
+		stage.setScene(scene);	
+		timer.start();
+	}
+	
 	@Override
-	public void start(Stage stage) throws InterruptedException {
+	public void start(Stage stage) throws InterruptedException, IOException {
 		logger.info("Setting up graphical interface");
+		InertialApplication.stage = stage;
 		
 		// the loader, root, and scene are initialized in the following
 		// order to ensure that the loader received by the controller
 		// is never null
 		FXMLLoader loader = new FXMLLoader();
-		Parent root = configureSceneParent(loader);
+		Parent root = configureSceneParent(loader, InertialSelectionSupervisor.class);
 		Scene scene = new Scene(root);
-		supervisor = loader.getController();
 		
 		// set default scene properties
-		this.configureDefaultStageProperties(stage);
+		stage.setTitle(configuration.getString("ui.defaults.title"));
 		stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/inertia-icon-48.png")));
 		stage.setScene(scene);
 		
-		// provide the supervisor with a world to manipulate
-		final InertialWorld world = InertialWorld.getWorld();
-		this.configureDefaultWorldProprties(world);
-		supervisor.setSupervisedWorld(world);
 		stage.show();
-		
-		// setup drag-and-drop
-		supervisor.setDragAndDropSettings();
-		supervisor.setUpControls();
 	
-		new AnimationTimer() {
+		timer = new AnimationTimer() {
 			
 			private final double UPDATE_AFTER_SECONDS = 0.08;
 			//Note: NANOSECONDS_PER_SECONDS only works when changed by a factor of 10. Should be 10e9
@@ -135,7 +141,7 @@ public class InertialApplication extends Application {
     				lastUpdate = now;
     			}
 		    }
-		}.start();
+		};
 		
 	}
 	

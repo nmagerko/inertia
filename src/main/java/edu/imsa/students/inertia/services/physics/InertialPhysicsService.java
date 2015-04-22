@@ -2,7 +2,6 @@ package edu.imsa.students.inertia.services.physics;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;

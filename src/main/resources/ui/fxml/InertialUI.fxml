@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.*?>
 <?import edu.imsa.students.inertia.shapes.*?>
+<?import javafx.scene.chart.*?>
+<?import edu.imsa.students.inertia.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.*?>
@@ -17,7 +18,7 @@
 <?import edu.imsa.students.inertia.shapes.InertialPentagon?>
 <?import edu.imsa.students.inertia.shapes.InertialCircle?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../css/caspian.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.imsa.students.inertia.InertialSupervisor">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../css/caspian.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.imsa.students.inertia.InertialDynamicSupervisor">
 	<top>
 	</top>
 	<left>
@@ -33,16 +34,6 @@
                   <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                </VBox.margin>
             </InertialRectangle>
-            <InertialTriangle fx:id="triangle" fill="STEELBLUE" scale="1.0" stroke="STEELBLUE" strokeType="INSIDE" strokeWidth="2.0">
-               <VBox.margin>
-                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-               </VBox.margin>
-            </InertialTriangle>
-            <InertialPentagon fx:id="pentagon" fill="STEELBLUE" scale="1.0" stroke="STEELBLUE" strokeType="INSIDE" strokeWidth="2.0">
-               <VBox.margin>
-                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-               </VBox.margin>
-            </InertialPentagon>
          </children></VBox>
 	</left>
    <bottom>
@@ -99,7 +90,7 @@
             </ScrollPane>
             <ScrollPane prefHeight="400.0" prefWidth="272.0" style="-fx-border-width: 0;">
                <content>
-                  <VBox fx:id="chartContainerContent" alignment="CENTER" minWidth="0.0" maxWidth="268.0" prefHeight="300.0" />
+                  <VBox fx:id="chartContainerContent" alignment="CENTER" maxWidth="268.0" minWidth="0.0" prefHeight="300.0" />
                </content></ScrollPane>
          </children>
          <opaqueInsets>

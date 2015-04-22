@@ -8,8 +8,6 @@ import edu.imsa.students.inertia.InertialSupervisor;
 import edu.imsa.students.inertia.services.transfer.InertialCopyService;
 import edu.imsa.students.inertia.shapes.bridge.InertialBridge;
 import javafx.event.EventHandler;
-import javafx.scene.effect.Bloom;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DataFormat;
@@ -19,11 +17,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Shape;
 
 public class InertialDragSetupService {
 
+	public InertialDragSetupService(){
+	}
+	
 	public static final DataFormat MOUSE_DATA_FORMAT = new DataFormat(
 			"javax.vecmath.Point2d");
 
