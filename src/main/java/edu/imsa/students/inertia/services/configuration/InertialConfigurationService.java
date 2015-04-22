@@ -19,7 +19,7 @@ import org.apache.logging.log4j.LogManager;
  */
 public class InertialConfigurationService {
 	
-	private static final String PROJECT_CONF_PATH = "src/main/conf";
+	private static final String PROJECT_CONF_PATH = "conf";
 	private static final String SYSTEM_CONF_PATH = "/system/";
 	private static final String ENV_CONF_PATH = "/environment/";
 	private static final String PROJECT_CONF_FILE_SUFFIX = ".conf.xml";

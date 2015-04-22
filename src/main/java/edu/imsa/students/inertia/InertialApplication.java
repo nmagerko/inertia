@@ -3,27 +3,19 @@ package edu.imsa.students.inertia;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 import edu.imsa.students.inertia.services.configuration.InertialConfigurationService;
 import edu.imsa.students.inertia.services.physics.InertialPhysicsService;
-import edu.imsa.students.inertia.services.physics.collision.CollisionDetectionService;
-import edu.imsa.students.inertia.services.physics.collision.CollisionEvaluationService;
 import edu.imsa.students.inertia.shapes.bridge.InertialBridge;
 import edu.imsa.students.inertia.world.InertialWorld;
 import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import org.apache.commons.configuration.XMLConfiguration;
 import org.apache.logging.log4j.LogManager;
@@ -39,18 +31,18 @@ public class InertialApplication extends Application {
 	private static AnimationTimer timer;
 	private static Stage stage;
 	private static InertialSupervisor supervisor;
-	private static XMLConfiguration configuration;
+	// private static XMLConfiguration configuration = InertialConfigurationService.getConfiguration("application");
 	private static Logger logger = LogManager.getLogger(InertialApplication.class);
 	
 	private static URL fetchParentURL(Class<?> parentClass){
 		URL parentLocation = null;
 		try {
 			if(parentClass == InertialSelectionSupervisor.class){
-				parentLocation = InertialApplication.class.getResource("/ui/fxml/SelectionUI.fxml");
+				parentLocation = InertialApplication.class.getClassLoader().getResource("ui/fxml/SelectionUI.fxml");
 			} else if (parentClass == InertialStaticSupervisor.class){
-				parentLocation = InertialApplication.class.getResource("/ui/fxml/StaticUI.fxml");
+				parentLocation = InertialApplication.class.getClassLoader().getResource("ui/fxml/StaticUI.fxml");
 			} else if (parentClass == InertialDynamicSupervisor.class){
-				parentLocation = InertialApplication.class.getResource("/ui/fxml/InteractiveUI.fxml");
+				parentLocation = InertialApplication.class.getClassLoader().getResource("ui/fxml/InteractiveUI.fxml");
 			}
 		} catch (Exception e) {
 			logger.error("An error occurred while loading the interface properties", e);
@@ -58,7 +50,7 @@ public class InertialApplication extends Application {
 			
 		return parentLocation;
 	}
-	
+
 	/**
 	 * Sets the properties of the Parent that will be used
 	 * with the JavaFX Scene. The loader is manipulated to
@@ -77,9 +69,7 @@ public class InertialApplication extends Application {
 	}
 	
 	public InertialApplication(){
-		logger.info("Initializing application subsystems");
-		
-		this.configuration = InertialConfigurationService.getConfiguration("application");
+		logger.info("Initialized application subsystems");
 	}
 	
 	public static InertialSupervisor getMainController() {
@@ -106,6 +96,8 @@ public class InertialApplication extends Application {
 	
 	@Override
 	public void start(Stage stage) throws InterruptedException, IOException {
+		InertialApplication.class.getClassLoader();
+		
 		logger.info("Setting up graphical interface");
 		InertialApplication.stage = stage;
 		
@@ -117,8 +109,9 @@ public class InertialApplication extends Application {
 		Scene scene = new Scene(root);
 		
 		// set default scene properties
-		stage.setTitle(configuration.getString("ui.defaults.title"));
-		stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/inertia-icon-48.png")));
+		//stage.setTitle(configuration.getString("ui.defaults.title"));
+		stage.setTitle("Inertia");
+		stage.getIcons().add(new Image(InertialApplication.class.getClassLoader().getResourceAsStream("img/inertia-icon-48.png")));
 		stage.setScene(scene);
 		
 		stage.show();
