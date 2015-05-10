@@ -8,8 +8,8 @@ import edu.imsa.students.inertia.world.InertialWorld;
 
 public abstract class InertialSupervisor {
 	
-	protected InertialWorld supervisedWorld;
-	protected InertialBridge selectedObject;
+	protected InertialWorld supervisedWorld = InertialWorld.getWorld();
+	protected InertialBridge selectedObject = null;
 	
 	@FXML
 	Pane inertialPane;

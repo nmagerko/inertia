@@ -5,5 +5,4 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <ListView fx:id="simulationChoices" maxHeight="325.0" maxWidth="500.0" prefHeight="304.0" prefWidth="470.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.imsa.students.inertia.InertialSelectionSupervisor" />

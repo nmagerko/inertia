@@ -7,7 +7,6 @@ import edu.imsa.students.inertia.shapes.InertialAttributes;
 public class GravityForce extends InertialForce{
 
 	private static final long serialVersionUID = 3523289804954754911L;
-
 	
 	@Override
 	public Vector2d computedAcceleration(InertialAttributes attributes){

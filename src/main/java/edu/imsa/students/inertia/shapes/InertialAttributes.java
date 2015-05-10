@@ -8,8 +8,6 @@ import javafx.scene.chart.NumberAxis;
 import javax.vecmath.Tuple2d;
 import javax.vecmath.Vector2d;
 
-import edu.imsa.students.inertia.services.physics.force.AirResistanceForce;
-import edu.imsa.students.inertia.services.physics.force.GravityForce;
 import edu.imsa.students.inertia.services.physics.force.InertialForce;
 
 /**
@@ -24,9 +22,6 @@ public class InertialAttributes {
 	private final Double DEFAULT_MASS = new Double(1.0);
 	private final Vector2d DEFAULT_VELOCITY = new Vector2d(0, 0);
 	private final Vector2d DEFAULT_ACCELERATION = new Vector2d(0, 0);
-	private final Double DEFAULT_AIR_RESISTANCE_CONSTANT = new Double(0.3);
-	private final GravityForce gravity = new GravityForce();
-	private final AirResistanceForce airResistance = new AirResistanceForce();
 
 	private Double mass;
 	private Vector2d acceleration;
@@ -54,8 +49,6 @@ public class InertialAttributes {
 		this.mass = DEFAULT_MASS;
 		this.velocity = DEFAULT_VELOCITY;
 		this.acceleration = DEFAULT_ACCELERATION;
-		forces.add(gravity);
-		forces.add(airResistance);
 		
 		setUpLineChart();
 	}
@@ -64,8 +57,6 @@ public class InertialAttributes {
 		this.mass = mass;
 		this.velocity = velocity;
 		this.acceleration = acceleration;
-		forces.add(gravity);
-		forces.add(airResistance);
 		
 		setUpLineChart();
 	}

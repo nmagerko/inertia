@@ -2,7 +2,7 @@ package edu.imsa.students.inertia;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.List;
 
 import edu.imsa.students.inertia.services.configuration.InertialConfigurationService;
 import edu.imsa.students.inertia.services.physics.InertialPhysicsService;
@@ -47,7 +47,7 @@ public class InertialApplication extends Application {
 		} catch (Exception e) {
 			logger.error("An error occurred while loading the interface properties", e);
 		}
-			
+		
 		return parentLocation;
 	}
 
@@ -87,8 +87,6 @@ public class InertialApplication extends Application {
 		
 		supervisor = loader.getController();
 		supervisor.setDragAndDropSettings();
-		// final InertialWorld world = InertialWorld.getWorld();
-		// supervisor.setSupervisedWorld(world);
 		
 		stage.setScene(scene);	
 		timer.start();
@@ -126,7 +124,7 @@ public class InertialApplication extends Application {
 
 		    @Override
 		    public void handle(long now) {
-    			ArrayList<InertialBridge> objectList = InertialWorld.getObjects();
+    			List<InertialBridge> objectList = supervisor.getSupervisedWorld().getObjects();
     			InertialPhysicsService.advance(objectList);  
     			InertialPhysicsService.handleCollisions(objectList);
     			if((double)(now - lastUpdate)/NANOSECONDS_PER_SECOND > UPDATE_AFTER_SECONDS) {

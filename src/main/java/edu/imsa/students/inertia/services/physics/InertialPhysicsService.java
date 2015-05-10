@@ -1,6 +1,5 @@
 package edu.imsa.students.inertia.services.physics;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -124,7 +123,7 @@ public class InertialPhysicsService {
 		return false;
 	}
 
-	public static void updateCharts(ArrayList<InertialBridge> objectList, double UPDATE_AFTER_SECONDS, int MAX_SECONDS) {
+	public static void updateCharts(List<InertialBridge> objectList, double UPDATE_AFTER_SECONDS, int MAX_SECONDS) {
 		for(InertialBridge object : objectList) {
 			ObservableList<Series<Number, Number>> data = object.getInertialAttributes().getPositionChart().getData();
 			Point2d position = object.getPosition();
@@ -165,7 +164,7 @@ public class InertialPhysicsService {
 		}
 	}
 	
-	public static void handleCollisions(ArrayList<InertialBridge> objectList) {
+	public static void handleCollisions(List<InertialBridge> objectList) {
 		List<Pair<InertialBridge, InertialBridge>> colliders = CollisionDetectionService.findIntersectingObjects(objectList);
 		for(Pair<InertialBridge, InertialBridge> collidingPair : colliders) {
 			CollisionEvaluationService.evaluateCollidingPair(collidingPair);

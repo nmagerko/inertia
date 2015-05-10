@@ -1,36 +1,30 @@
 package edu.imsa.students.inertia;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import edu.imsa.students.inertia.services.interactivity.InertialDragSetupService;
+import edu.imsa.students.inertia.services.physics.force.AirResistanceForce;
+import edu.imsa.students.inertia.services.physics.force.GravityForce;
+import edu.imsa.students.inertia.services.physics.force.InertialForce;
 import edu.imsa.students.inertia.shapes.InertialAttributes;
 import edu.imsa.students.inertia.shapes.InertialCircle;
 import edu.imsa.students.inertia.shapes.InertialRectangle;
-import edu.imsa.students.inertia.shapes.InertialTriangle;
-import edu.imsa.students.inertia.shapes.InertialPentagon;
 import edu.imsa.students.inertia.shapes.bridge.InertialBridge;
-import edu.imsa.students.inertia.world.InertialWorld;
 
 public class InertialDynamicSupervisor extends InertialSupervisor {
 
 	@FXML
 	InertialCircle circle;
 	@FXML
-	InertialTriangle triangle;
-	@FXML
 	InertialRectangle square;
-	@FXML
-	InertialPentagon pentagon;
 	@FXML
 	AnchorPane upperDetailsPane;
 	@FXML
@@ -120,6 +114,11 @@ public class InertialDynamicSupervisor extends InertialSupervisor {
 	}
 	
 	public void initialize() {
+		List<InertialForce> worldForces = new ArrayList<InertialForce>();
+		worldForces.add(new GravityForce());
+		worldForces.add(new AirResistanceForce());
+		
+		this.getSupervisedWorld().setGlobalForces(worldForces);
 		this.setUpControls();
 	}
 	
