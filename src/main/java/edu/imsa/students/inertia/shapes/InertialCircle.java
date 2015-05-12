@@ -16,7 +16,7 @@ public class InertialCircle extends Circle implements InertialBridge  {
 	private static final long serialVersionUID = -1115655886137636562L;
 	private static final Double DEFAULT_RADIUS = new Double(50.0);
 
-	private InertialAttributes attributes;
+	private InertialAttributes<InertialCircle> attributes;
 	private Point2d lastIneractionPoint;
 
 	
@@ -33,25 +33,32 @@ public class InertialCircle extends Circle implements InertialBridge  {
 	public InertialCircle(){
 		super(DEFAULT_RADIUS);
 		
-		this.attributes = new InertialAttributes();
+		this.attributes = new InertialAttributes<InertialCircle>(this);
 		this.initializeCopyInteractivity();
 	}
 	
 	public InertialCircle(Point2d position, Double radius){
 		super(position.x, position.y, radius);
 		
-		this.attributes = new InertialAttributes();
+		this.attributes = new InertialAttributes<InertialCircle>(this);
+		this.initializeMoveInteractivity();
+	}
+	
+	public InertialCircle(Point2d position){
+		super(position.x, position.y, DEFAULT_RADIUS);
+		
+		this.attributes = new InertialAttributes<InertialCircle>(this);
 		this.initializeMoveInteractivity();
 	}
 	
 	public InertialCircle(Point2d position, Double radius, Paint paint){
 		super(position.x, position.y, radius);
 		this.setFill(paint);
-		this.attributes = new InertialAttributes();
+		this.attributes = new InertialAttributes<InertialCircle>(this);
 		this.initializeMoveInteractivity();
 	}
 	
-	public InertialCircle(Point2d position, Double radius, InertialAttributes attributes) {
+	public InertialCircle(Point2d position, Double radius, InertialAttributes<InertialCircle> attributes) {
 		super(position.x, position.y, radius);
 		
 		this.attributes = attributes;
@@ -61,10 +68,11 @@ public class InertialCircle extends Circle implements InertialBridge  {
 	@Override
 	public void setInertialAttributes(InertialAttributes updatedAttributes) {
 		this.attributes = updatedAttributes;
+		this.attributes.setParent(this);
 	}
 
 	@Override
-	public InertialAttributes getInertialAttributes() {
+	public InertialAttributes<? extends InertialBridge> getInertialAttributes() {
 		return this.attributes;
 	}
 	

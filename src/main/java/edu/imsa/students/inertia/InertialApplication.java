@@ -31,6 +31,7 @@ public class InertialApplication extends Application {
 	private static AnimationTimer timer;
 	private static Stage stage;
 	private static InertialSupervisor supervisor;
+	private static boolean boundless = false;
 	// private static XMLConfiguration configuration = InertialConfigurationService.getConfiguration("application");
 	private static Logger logger = LogManager.getLogger(InertialApplication.class);
 	
@@ -41,8 +42,10 @@ public class InertialApplication extends Application {
 				parentLocation = InertialApplication.class.getClassLoader().getResource("ui/fxml/SelectionUI.fxml");
 			} else if (parentClass == InertialStaticSupervisor.class){
 				parentLocation = InertialApplication.class.getClassLoader().getResource("ui/fxml/StaticUI.fxml");
+				boundless = true;
 			} else if (parentClass == InertialDynamicSupervisor.class){
 				parentLocation = InertialApplication.class.getClassLoader().getResource("ui/fxml/InteractiveUI.fxml");
+				boundless = false;
 			}
 		} catch (Exception e) {
 			logger.error("An error occurred while loading the interface properties", e);
@@ -90,6 +93,10 @@ public class InertialApplication extends Application {
 		
 		stage.setScene(scene);	
 		timer.start();
+	}
+	
+	public static boolean isBoundless(){
+		return boundless;
 	}
 	
 	@Override

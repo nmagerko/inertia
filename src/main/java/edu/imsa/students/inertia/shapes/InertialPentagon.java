@@ -16,7 +16,7 @@ public class InertialPentagon extends RegularPentagon implements InertialBridge 
 	private static final long serialVersionUID = -1512058523775658486L;
 	private static final Double DEFAULT_SCALE = new Double(1.0);
 	
-	private InertialAttributes attributes;
+	private InertialAttributes<InertialPentagon> attributes;
 	private Point2d lastInteractionPoint;
 	private void initializeMoveInteractivity(){
 		InertialDragSetupService.setUpMoveObjectOnMousePressed(this);
@@ -30,25 +30,25 @@ public class InertialPentagon extends RegularPentagon implements InertialBridge 
 	
 	public InertialPentagon(){
 		super();
-		this.attributes = new InertialAttributes();
+		this.attributes = new InertialAttributes<InertialPentagon>(this);
 		this.initializeCopyInteractivity();
 	}
 	
 	public InertialPentagon(Point2d position, Double scale){
 		super(position.x, position.y, scale);
 		
-		this.attributes = new InertialAttributes();
+		this.attributes = new InertialAttributes<InertialPentagon>(this);
 		this.initializeMoveInteractivity();
 	}
 	
 	public InertialPentagon(Point2d position, Double scale, Paint paint){
 		super(position.x, position.y, scale);
 		this.setFill(paint);
-		this.attributes = new InertialAttributes();
+		this.attributes = new InertialAttributes<InertialPentagon>(this);
 		this.initializeMoveInteractivity();
 	}
 	
-	public InertialPentagon(Point2d position, Double scale, InertialAttributes attributes) {
+	public InertialPentagon(Point2d position, Double scale, InertialAttributes<InertialPentagon> attributes) {
 		super(position.x, position.y, scale);
 		
 		this.attributes = attributes;
@@ -56,12 +56,13 @@ public class InertialPentagon extends RegularPentagon implements InertialBridge 
 	}
 	
 	@Override
-	public void setInertialAttributes(InertialAttributes updatedAttributes) {
-		this.attributes = updatedAttributes;		
+	@SuppressWarnings("unchecked")
+	public void setInertialAttributes(InertialAttributes<? extends InertialBridge> updatedAttributes) {
+		this.attributes = (InertialAttributes<InertialPentagon>) updatedAttributes;		
 	}
 
 	@Override
-	public InertialAttributes getInertialAttributes() {
+	public InertialAttributes<InertialPentagon> getInertialAttributes() {
 		return this.attributes;
 	}
 	

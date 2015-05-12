@@ -1,9 +1,12 @@
 package edu.imsa.students.inertia;
 
 import javax.vecmath.Point2d;
+import javax.vecmath.Vector2d;
 
+import edu.imsa.students.inertia.services.physics.force.IntergravitationalForce;
 import edu.imsa.students.inertia.services.transfer.InertialCopyService;
 import edu.imsa.students.inertia.shapes.InertialCircle;
+import edu.imsa.students.inertia.shapes.InertialRectangle;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -62,11 +65,16 @@ public class InertialSelectionSupervisor {
 					// TODO: find a cleaner solution to static object additions
 					// TODO: fix drag service in static supervisor
 					Pane environmentalPane = InertialApplication.getMainController().getInertialPane();
-					InertialCircle centralObject = new InertialCircle();
-					InertialCircle satelliteObject = new InertialCircle();
-					Point2d centralObjectPosition = new Point2d(320.5, 322.0);
-					Point2d satelliteObjectPosition = new Point2d(100.0, 322.0);
-					centralObject.getInertialAttributes().setMass(500.0);
+					Point2d centralObjectPosition = new Point2d(420.5, 161.0);
+					Point2d satelliteObjectPosition = new Point2d(180.0, 161.0);
+					InertialRectangle centralObject = new InertialRectangle(centralObjectPosition);
+					InertialRectangle satelliteObject = new InertialRectangle(satelliteObjectPosition);
+					centralObject.getInertialAttributes().setMass(5e14);
+					satelliteObject.getInertialAttributes().setMass(5e10);
+					satelliteObject.getInertialAttributes().setVelocity(new Vector2d(0,-10));
+					
+					centralObject.getInertialAttributes().addForce(new IntergravitationalForce());
+					satelliteObject.getInertialAttributes().addForce(new IntergravitationalForce());
 					
 					InertialCopyService.addObject(environmentalPane, centralObject, centralObjectPosition);
 					InertialCopyService.addObject(environmentalPane, satelliteObject, satelliteObjectPosition);

@@ -15,7 +15,7 @@ public class InertialTriangle extends RegularTriangle implements InertialBridge 
 	private static final long serialVersionUID = -9158292726264735510L;
 	private static final Double DEFAULT_SCALE = new Double(1.0);
 	
-	private InertialAttributes attributes;
+	private InertialAttributes<InertialTriangle> attributes;
 	private Point2d lastInteractionPoint;
 	private void initializeMoveInteractivity(){
 		InertialDragSetupService.setUpMoveObjectOnMousePressed(this);
@@ -29,21 +29,21 @@ public class InertialTriangle extends RegularTriangle implements InertialBridge 
 	
 	public InertialTriangle(){
 		super();
-		this.attributes = new InertialAttributes();
+		this.attributes = new InertialAttributes<InertialTriangle>(this);
 		this.initializeCopyInteractivity();
 	}
 	
 	public InertialTriangle(Point2d position, Double scale){
 		super(position.x, position.y, scale);
 		
-		this.attributes = new InertialAttributes();
+		this.attributes = new InertialAttributes<InertialTriangle>(this);
 		this.initializeMoveInteractivity();
 	}
 	
 	public InertialTriangle(Point2d position, Double scale, Paint paint){
 		super(position.x, position.y, scale);
 		this.setFill(paint);
-		this.attributes = new InertialAttributes();
+		this.attributes = new InertialAttributes<InertialTriangle>(this);
 		this.initializeMoveInteractivity();
 	}
 	
@@ -56,7 +56,8 @@ public class InertialTriangle extends RegularTriangle implements InertialBridge 
 	
 	@Override
 	public void setInertialAttributes(InertialAttributes updatedAttributes) {
-		this.attributes = updatedAttributes;		
+		this.attributes = updatedAttributes;	
+		this.attributes.setParent(this);
 	}
 
 	@Override

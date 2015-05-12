@@ -17,7 +17,7 @@ public class InertialRectangle extends Rectangle implements InertialBridge {
 	private static final Double DEFAULT_WIDTH = new Double(100.0);
 	private static final Double DEFAULT_HEIGHT = new Double(100.0);
 	
-	private InertialAttributes attributes;
+	private InertialAttributes<InertialRectangle> attributes;
 	private Point2d lastInteractionPoint;
 	
 	private void initializeMoveInteractivity(){
@@ -33,38 +33,46 @@ public class InertialRectangle extends Rectangle implements InertialBridge {
 	public InertialRectangle(){
 		super(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		
-		this.attributes = new InertialAttributes();
+		this.attributes = new InertialAttributes<InertialRectangle>(this);
 		this.initializeCopyInteractivity();
 	}
 	
 	public InertialRectangle(Point2d position, Double width, Double height){
 		super(position.x, position.y, width, height);
 		
-		this.attributes = new InertialAttributes();
+		this.attributes = new InertialAttributes<InertialRectangle>(this);
 		this.initializeMoveInteractivity();
 	}
 	
 	public InertialRectangle(Point2d position, Double width, Double height, Paint paint){
 		super(position.x, position.y, width, height);
 		this.setFill(paint);
-		this.attributes = new InertialAttributes();
+		this.attributes = new InertialAttributes<InertialRectangle>(this);
 		this.initializeMoveInteractivity();
 	}
 	
-	public InertialRectangle(Point2d position, Double width, Double height, InertialAttributes attributes) {
+	public InertialRectangle(Point2d position, Double width, Double height, InertialAttributes<InertialRectangle> attributes) {
 		super(position.x, position.y, width, height);
 		
 		this.attributes = attributes;
 		this.initializeMoveInteractivity();
 	}
 
-	@Override
-	public void setInertialAttributes(InertialAttributes updatedAttributes) {
-		this.attributes = updatedAttributes;		
+	public InertialRectangle(Point2d position) {
+		super(position.x, position.y, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+		
+		this.attributes = new InertialAttributes<InertialRectangle>(this);
+		this.initializeMoveInteractivity();
 	}
 
 	@Override
-	public InertialAttributes getInertialAttributes() {
+	public void setInertialAttributes(InertialAttributes<? extends InertialBridge> updatedAttributes) {
+		this.attributes = (InertialAttributes<InertialRectangle>) updatedAttributes;
+		this.attributes.setParent(this);
+	}
+
+	@Override
+	public InertialAttributes<InertialRectangle> getInertialAttributes() {
 		return this.attributes;
 	}
 	

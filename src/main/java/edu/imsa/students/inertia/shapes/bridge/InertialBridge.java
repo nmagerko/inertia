@@ -22,8 +22,8 @@ import edu.imsa.students.inertia.shapes.InertialAttributes;
 public interface InertialBridge extends Serializable {
 	
 	// getters and setters for the InertialAttributes
-	public void setInertialAttributes(InertialAttributes updatedAttributes);
-	public InertialAttributes getInertialAttributes();
+	public void setInertialAttributes(InertialAttributes<? extends InertialBridge> updatedAttributes);
+	public InertialAttributes<? extends InertialBridge> getInertialAttributes();
 	
 	// getters and setters for point-setting convenience
 	public void setPosition(Point2d position);

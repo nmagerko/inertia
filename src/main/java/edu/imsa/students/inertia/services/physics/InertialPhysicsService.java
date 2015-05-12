@@ -48,23 +48,26 @@ public class InertialPhysicsService {
 
 				// changes velocity
 				// also check collisions
-				Pane parentPane = supervisor.getInertialPane();
-
-				Bounds container = parentPane.getLayoutBounds();
-				Bounds object = i.getBounds();
-
 				boolean outOfBounds = false;
-				// test reflection in x direction
-				if (isOutOfXBounds(object, container)) {
-					velocity.set(-velocity.x, velocity.y);
-					outOfBounds = true;
+				if(!InertialApplication.isBoundless()){ 
+					Pane parentPane = supervisor.getInertialPane();
+	
+					Bounds container = parentPane.getLayoutBounds();
+					Bounds object = i.getBounds();
+	
+					// test reflection in x direction
+					if (isOutOfXBounds(object, container)) {
+						velocity.set(-velocity.x, velocity.y);
+						outOfBounds = true;
+					}
+					// test reflection in y direction
+					if (isOutOfYBounds(object, container)) {
+						velocity.set(velocity.x, -velocity.y);
+						outOfBounds = true;
+					}
+					
 				}
-				// test reflection in y direction
-				if (isOutOfYBounds(object, container)) {
-					velocity.set(velocity.x, -velocity.y);
-					outOfBounds = true;
-				}
-				
+
 				if (!outOfBounds) {
 					Vector2d acceleration = attributes.getAcceleration();
 					Vector2d accelerationStep = new Vector2d(acceleration.x,
@@ -72,7 +75,7 @@ public class InertialPhysicsService {
 					accelerationStep.scale(TIME_STEP);
 					velocity.add(accelerationStep);
 				}
-
+				
 				// changes position
 				Vector2d velocityStep = new Vector2d(velocity.x, velocity.y);
 				velocityStep.scale(TIME_STEP);

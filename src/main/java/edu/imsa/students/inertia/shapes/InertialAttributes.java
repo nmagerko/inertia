@@ -9,6 +9,7 @@ import javax.vecmath.Tuple2d;
 import javax.vecmath.Vector2d;
 
 import edu.imsa.students.inertia.services.physics.force.InertialForce;
+import edu.imsa.students.inertia.shapes.bridge.InertialBridge;
 
 /**
  * Defines the "inertial" attributes, or
@@ -17,12 +18,13 @@ import edu.imsa.students.inertia.services.physics.force.InertialForce;
  * @author nmagerko
  *
  */
-public class InertialAttributes {
+public class InertialAttributes<T extends InertialBridge> {
 	
 	private final Double DEFAULT_MASS = new Double(1.0);
 	private final Vector2d DEFAULT_VELOCITY = new Vector2d(0, 0);
 	private final Vector2d DEFAULT_ACCELERATION = new Vector2d(0, 0);
 
+	private T parent;
 	private Double mass;
 	private Vector2d acceleration;
 	private Vector2d velocity;
@@ -45,18 +47,11 @@ public class InertialAttributes {
 		this.previousPositions.setAnimated(false);
 	}
 	
-	public InertialAttributes(){
+	public InertialAttributes(T parent){
 		this.mass = DEFAULT_MASS;
 		this.velocity = DEFAULT_VELOCITY;
 		this.acceleration = DEFAULT_ACCELERATION;
-		
-		setUpLineChart();
-	}
-
-	public InertialAttributes(Double mass, Vector2d acceleration, Vector2d velocity) {
-		this.mass = mass;
-		this.velocity = velocity;
-		this.acceleration = acceleration;
+		this.parent = parent;
 		
 		setUpLineChart();
 	}
@@ -165,6 +160,14 @@ public class InertialAttributes {
 	
 	public LineChart<Number, Number> getPositionChart() {
 		return this.previousPositions;
+	}
+	
+	public void setParent(T newParent){
+		this.parent = newParent;
+	}
+	
+	public T getParent(){
+		return this.parent;
 	}
 	
 }
